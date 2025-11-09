@@ -22,6 +22,8 @@
             --light: #ecf0f1;
             --dark: #2c3e50;
             --success: #2ecc71;
+            --whatsapp: #25D366;
+            --avito: #5AC7F5;
         }
 
         body {
@@ -386,6 +388,7 @@
             justify-content: center;
             gap: 10px;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
 
         .gallery-thumb {
@@ -531,6 +534,7 @@
             padding: 25px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s;
+            position: relative;
         }
 
         .review-card:hover {
@@ -554,6 +558,7 @@
             color: white;
             font-weight: bold;
             margin-right: 15px;
+            font-size: 1.2rem;
         }
 
         .review-info h4 {
@@ -569,11 +574,12 @@
         .review-stars {
             color: #f1c40f;
             margin-bottom: 10px;
+            font-size: 1.2rem;
         }
 
         .review-text {
-            font-style: italic;
             line-height: 1.5;
+            font-size: 1rem;
         }
 
         .hidden-reviews {
@@ -605,6 +611,7 @@
             text-align: center;
             margin-bottom: 20px;
             color: var(--primary);
+            font-size: 1.5rem;
         }
 
         .star-rating {
@@ -623,6 +630,29 @@
 
         .star.active {
             color: #f1c40f;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
         }
 
         /* External Links Section */
@@ -659,7 +689,10 @@
         .external-link i {
             font-size: 1.5rem;
             margin-right: 10px;
-            color: var(--secondary);
+        }
+
+        .external-link.avito i {
+            color: var(--avito);
         }
 
         /* Contact Section */
@@ -720,9 +753,22 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .social-links a:hover {
-            background-color: var(--secondary);
+        .social-links a.whatsapp:hover {
+            background-color: var(--whatsapp);
             color: white;
+        }
+
+        .social-links a.telegram:hover {
+            background-color: #0088cc;
+            color: white;
+        }
+
+        .social-links a.vk:hover {
+            background-color: #4C75A3;
+            color: white;
+        }
+
+        .social-links a:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
@@ -1063,6 +1109,10 @@
                 width: 60px;
                 height: 45px;
             }
+            
+            .reviews-container, .hidden-reviews.active {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -1289,8 +1339,8 @@
             <div class="external-links">
                 <p>Вы можете найти нас на популярных сервисах и оставить отзыв о нашей работе</p>
                 <div class="links-container">
-                    <a href="https://www.avito.ru/glazov/predlozheniya_uslug/remont_noutbukov_televizorov_pristavok_3630080756?utm_campaign=native&utm_medium=item_page_android&utm_source=soc_sharing_seller" class="external-link animate-on-scroll" target="_blank">
-                        <i class="fab fa-avito"></i>
+                    <a href="https://www.avito.ru/glazov/predlozheniya_uslug/remont_noutbukov_televizorov_pristavok_3630080756?utm_campaign=native&utm_medium=item_page_android&utm_source=soc_sharing_seller" class="external-link avito animate-on-scroll" target="_blank">
+                        <i class="fas fa-store"></i>
                         Авито
                     </a>
                     <a href="https://yandex.ru/uslugi/profile/AleksejI-1855998" class="external-link animate-on-scroll" target="_blank">
@@ -1351,9 +1401,9 @@
                         </div>
                     </div>
                     <div class="social-links animate-on-scroll">
-                        <a href="https://t.me/89501502965" target="_blank"><i class="fab fa-telegram"></i></a>
-                        <a href="https://wa.me/89501502965" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://vk.com/notebookglazov" target="_blank"><i class="fab fa-vk"></i></a>
+                        <a href="https://t.me/89501502965" target="_blank" class="telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="https://wa.me/89501502965" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://vk.com/notebookglazov" target="_blank" class="vk"><i class="fab fa-vk"></i></a>
                     </div>
                 </div>
                 <div class="contact-form animate-on-scroll">
@@ -1628,8 +1678,12 @@
         
         // Initialize gallery with images from gallery folder
         function initializeGallery() {
-            // This would typically be populated from a server
-            // For GitHub Pages, you'll need to manually list your images
+            // Try to fetch all images from the gallery folder
+            // This is a workaround for GitHub Pages where we can't list files
+            // In a real implementation, you would need a server-side script
+            
+            // For now, we'll use a predefined list but also try to load any images
+            // that might be in the gallery folder
             galleryImages = [
                 './gallery/photo1.jpg',
                 './gallery/photo2.jpg',
@@ -1639,11 +1693,17 @@
                 './gallery/photo6.jpg',
                 './gallery/photo7.jpg',
                 './gallery/photo8.jpg'
-                // Add more images as needed
             ];
             
-            // Filter out images that might not exist
-            galleryImages = galleryImages.filter(src => src && src.trim() !== '');
+            // Try to load additional images that might exist
+            // This is a workaround - in a real implementation you would need server-side code
+            for (let i = 1; i <= 20; i++) {
+                const potentialImage = `./gallery/image${i}.jpg`;
+                // We'll add it to the list and let the browser handle loading errors
+                if (!galleryImages.includes(potentialImage)) {
+                    galleryImages.push(potentialImage);
+                }
+            }
             
             renderGallery();
         }
@@ -1652,6 +1712,9 @@
         function renderGallery() {
             gallerySlides.innerHTML = '';
             galleryNav.innerHTML = '';
+            
+            // Filter out images that might not exist
+            const validImages = [];
             
             galleryImages.forEach((imageSrc, index) => {
                 // Skip empty or invalid URLs
@@ -1666,33 +1729,42 @@
                 img.alt = `Пример работы ${index + 1}`;
                 img.loading = 'lazy';
                 img.addEventListener('click', () => openGalleryLightbox(index));
+                
+                // Check if image loads successfully
+                img.onload = function() {
+                    validImages.push(imageSrc);
+                    
+                    // Create thumbnail only if image loaded successfully
+                    const thumb = document.createElement('div');
+                    thumb.className = 'gallery-thumb';
+                    if (validImages.length === 1) thumb.classList.add('active');
+                    thumb.setAttribute('data-index', validImages.length - 1);
+                    
+                    const thumbImg = document.createElement('img');
+                    thumbImg.src = imageSrc;
+                    thumbImg.alt = `Пример работы ${validImages.length}`;
+                    
+                    thumb.appendChild(thumbImg);
+                    galleryNav.appendChild(thumb);
+                    
+                    // Thumb click event
+                    thumb.addEventListener('click', () => {
+                        currentGallerySlide = validImages.length - 1;
+                        updateGalleryCarousel();
+                    });
+                };
+                
                 img.onerror = function() {
-                    // If image fails to load, remove the item
+                    // If image fails to load, remove the slide
                     slide.style.display = 'none';
                 };
                 
                 slide.appendChild(img);
                 gallerySlides.appendChild(slide);
-                
-                // Create thumbnail
-                const thumb = document.createElement('div');
-                thumb.className = 'gallery-thumb';
-                if (index === 0) thumb.classList.add('active');
-                thumb.setAttribute('data-index', index);
-                
-                const thumbImg = document.createElement('img');
-                thumbImg.src = imageSrc;
-                thumbImg.alt = `Пример работы ${index + 1}`;
-                
-                thumb.appendChild(thumbImg);
-                galleryNav.appendChild(thumb);
-                
-                // Thumb click event
-                thumb.addEventListener('click', () => {
-                    currentGallerySlide = index;
-                    updateGalleryCarousel();
-                });
             });
+            
+            // Update gallery images array with only valid images
+            galleryImages = validImages;
             
             // Update gallery carousel
             updateGalleryCarousel();
@@ -1700,6 +1772,8 @@
         
         // Update gallery carousel
         function updateGalleryCarousel() {
+            if (galleryImages.length === 0) return;
+            
             gallerySlides.style.transform = `translateX(-${currentGallerySlide * 100}%)`;
             
             // Update thumbnails
@@ -1711,12 +1785,14 @@
         
         // Next gallery slide
         function nextGallerySlide() {
+            if (galleryImages.length === 0) return;
             currentGallerySlide = (currentGallerySlide + 1) % galleryImages.length;
             updateGalleryCarousel();
         }
         
         // Previous gallery slide
         function prevGallerySlide() {
+            if (galleryImages.length === 0) return;
             currentGallerySlide = (currentGallerySlide - 1 + galleryImages.length) % galleryImages.length;
             updateGalleryCarousel();
         }
@@ -1746,6 +1822,7 @@
 
         // Open gallery lightbox
         function openGalleryLightbox(index) {
+            if (galleryImages.length === 0) return;
             currentGallerySlide = index;
             galleryLightboxImage.src = galleryImages[currentGallerySlide];
             galleryLightbox.classList.add('active');
@@ -1760,6 +1837,7 @@
 
         // Next gallery image in lightbox
         function nextGalleryLightboxImage() {
+            if (galleryImages.length === 0) return;
             currentGallerySlide = (currentGallerySlide + 1) % galleryImages.length;
             galleryLightboxImage.src = galleryImages[currentGallerySlide];
             updateGalleryCarousel();
@@ -1767,6 +1845,7 @@
 
         // Previous gallery image in lightbox
         function prevGalleryLightboxImage() {
+            if (galleryImages.length === 0) return;
             currentGallerySlide = (currentGallerySlide - 1 + galleryImages.length) % galleryImages.length;
             galleryLightboxImage.src = galleryImages[currentGallerySlide];
             updateGalleryCarousel();
