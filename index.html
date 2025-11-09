@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПрофСервис18 - Ремонт техники и 3D-печать в Глазове</title>
+    <meta name="description" content="Ремонт телевизоров, ноутбуков, телефонов, игровых консолей и 3D-печать в Глазове. Качественный сервис с 2007 года. Гарантия на все работы.">
+    <meta name="keywords" content="ремонт телевизоров Глазов, ремонт ноутбуков, ремонт телефонов, ремонт игровых консолей, 3D печать, сервисный центр, мастерская, ремонт техники">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section with customizable background */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9)), var(--hero-bg, url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'));
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 180px 0 100px;
+            text-align: center;
+            margin-top: 70px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background-color: #c0392b;
+        }
+
+        /* About Section */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Workshop Carousel */
+        .workshop-carousel {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            height: 400px;
+        }
+
+        .workshop-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .workshop-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .workshop-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .workshop-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .workshop-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .workshop-dot.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+
+        .workshop-prev, .workshop-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .workshop-prev {
+            left: 15px;
+        }
+
+        .workshop-next {
+            right: 15px;
+        }
+
+        .workshop-prev:hover, .workshop-next:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Services Section */
+        .services {
+            background-color: var(--light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--secondary);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* Gallery Section - Carousel */
+        .gallery {
+            background-color: white;
+        }
+
+        .gallery-carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            height: 500px;
+            margin-bottom: 20px;
+        }
+
+        .gallery-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .gallery-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .gallery-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .gallery-thumb {
+            width: 80px;
+            height: 60px;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .gallery-thumb.active {
+            opacity: 1;
+            border-color: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-prev, .gallery-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+            font-size: 1.2rem;
+        }
+
+        .gallery-prev {
+            left: 15px;
+        }
+
+        .gallery-next {
+            right: 15px;
+        }
+
+        .gallery-prev:hover, .gallery-next:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Lightbox Modal */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 20px;
+        }
+
+        .lightbox-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-btn:hover {
+            background: white;
+        }
+
+        /* Reviews Section with Collapsible */
+        .reviews {
+            background-color: var(--light);
+        }
+
+        .reviews-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .review-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .review-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .review-date {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .review-stars {
+            color: #f1c40f;
+            margin-bottom: 10px;
+        }
+
+        .review-text {
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .hidden-reviews {
+            display: none;
+        }
+
+        .hidden-reviews.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .toggle-reviews {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .add-review-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .add-review-form h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 5px;
+        }
+
+        .star {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .star.active {
+            color: #f1c40f;
+        }
+
+        /* External Links Section */
+        .external-links {
+            text-align: center;
+        }
+
+        .links-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 2rem;
+        }
+
+        .external-link {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .external-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .external-link i {
+            font-size: 1.5rem;
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--light);
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 50px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-form {
+            flex: 1;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .info-text h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            color: var(--secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .map {
+            margin-top: 3rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .map iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+
+        .footer-social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .admin-toggle {
+            background-color: var(--accent);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .admin-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1002;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-modal.active {
+            display: flex;
+        }
+
+        .admin-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .admin-header h2 {
+            color: var(--primary);
+        }
+
+        .close-admin {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--accent);
+        }
+
+        .admin-section {
+            margin-bottom: 25px;
+        }
+
+        .admin-section h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .admin-reviews {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .admin-review-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-review-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .delete-review {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* Login Modal */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1003;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-modal.active {
+            display: flex;
+        }
+
+        .login-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .login-header h2 {
+            color: var(--primary);
+        }
+
+        .login-error {
+            color: var(--accent);
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content, .contact-container {
+                flex-direction: column;
+            }
+            
+            .workshop-carousel {
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .gallery-carousel {
+                height: 300px;
+            }
+            
+            .gallery-thumb {
+                width: 60px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-tools"></i>
+                ПрофСервис18
+            </a>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="#gallery">Галерея</a></li>
+                <li><a href="#reviews">Отзывы</a></li>
+                <li><a href="#links">Наши страницы</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Профессиональный ремонт техники в Глазове</h1>
+            <p>Мы ремонтируем телевизоры, ноутбуки, телефоны, игровые консоли и занимаемся 3D-печатью с 2007 года. Качественный сервис и гарантия на все работы.</p>
+            <a href="#contact" class="btn">Связаться с нами</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>О нашей мастерской</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text animate-on-scroll">
+                    <h3>ПрофСервис18 - надежный партнер в ремонте техники в Глазове</h3>
+                    <p>Наша мастерская была основана в 2007 году с целью предоставления качественных услуг по ремонту электронной техники. За годы работы мы заслужили доверие сотен клиентов в Глазове благодаря профессиональному подходу и доступным ценам.</p>
+                    <p>Мы специализируемся на ремонте телевизоров, ноутбуков, смартфонов, игровых консолей и предоставляем услуги 3D-печати. Наши специалисты регулярно проходят обучение и имеют сертификаты для работы с современной техникой.</p>
+                    <p>В работе мы используем только качественные запчасти и современное диагностическое оборудование, что позволяет нам точно определять причину неисправности и выполнять ремонт в кратчайшие сроки.</p>
+                </div>
+                <div class="workshop-carousel animate-on-scroll">
+                    <div class="workshop-slides" id="workshopSlides">
+                        <div class="workshop-slide">
+                            <img src="./img/mast1.jpg" alt="Наша мастерская - рабочее место 1" onerror="this.style.display='none'">
+                        </div>
+                        <div class="workshop-slide">
+                            <img src="./img/mast2.jpg" alt="Наша мастерская - рабочее место 2" onerror="this.style.display='none'">
+                        </div>
+                        <div class="workshop-slide">
+                            <img src="./img/mast3.jpg" alt="Наша мастерская - оборудование" onerror="this.style.display='none'">
+                        </div>
+                        <div class="workshop-slide" style="background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-camera" style="font-size: 3rem; color: #ccc;"></i>
+                        </div>
+                    </div>
+                    <button class="workshop-prev" id="workshopPrev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="workshop-next" id="workshopNext">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="workshop-nav" id="workshopNav">
+                        <div class="workshop-dot active" data-index="0"></div>
+                        <div class="workshop-dot" data-index="1"></div>
+                        <div class="workshop-dot" data-index="2"></div>
+                        <div class="workshop-dot" data-index="3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши услуги</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <h3>Ремонт телевизоров</h3>
+                    <p>Диагностика и ремонт ЖК, LED, OLED и плазменных телевизоров всех брендов. Замена матриц, блоков питания, ремонт подсветки.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3>Ремонт ноутбуков</h3>
+                    <p>Замена экранов, клавиатур, ремонт материнских плат, чистка от пыли и замена термопасты. Восстановление данных.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Ремонт телефонов</h3>
+                    <p>Замена дисплеев, аккумуляторов, разъемов, ремонт после падения и попадания влаги. Восстановление программного обеспечения.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Ремонт консолей</h3>
+                    <p>Ремонт PlayStation, Xbox, Nintendo Switch и других игровых консолей. Чистка, замена термопасты, ремонт дисководов.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-print"></i>
+                    </div>
+                    <h3>3D-печать</h3>
+                    <p>Печать деталей и моделей на 3D-принтере. Прототипирование и изготовление запчастей. Консультации по 3D-моделированию.</p>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Бесплатная консультация</h3>
+                    <p>Профессиональные консультации по вопросам ремонта и обслуживания техники. Помощь в выборе оптимального решения.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section gallery" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Галерея работ</h2>
+            </div>
+            <div class="gallery-carousel">
+                <div class="gallery-slides" id="gallerySlides">
+                    <!-- Gallery slides will be added dynamically -->
+                </div>
+                <button class="gallery-prev" id="galleryPrev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="gallery-next" id="galleryNext">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="gallery-nav" id="galleryNav">
+                <!-- Gallery thumbnails will be added dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal for Gallery -->
+    <div class="lightbox" id="galleryLightbox">
+        <div class="lightbox-content">
+            <img id="galleryLightboxImage" src="" alt="">
+            <button class="lightbox-close" id="galleryLightboxClose">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="lightbox-nav">
+                <button class="lightbox-btn" id="galleryLightboxPrev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="lightbox-btn" id="galleryLightboxNext">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <section class="section reviews" id="reviews">
+        <div class="container">
+            <div class="section-title">
+                <h2>Отзывы клиентов</h2>
+            </div>
+            <div class="reviews-container" id="reviewsContainer">
+                <!-- Last 3 reviews will be shown here -->
+            </div>
+            
+            <div class="hidden-reviews" id="hiddenReviews">
+                <!-- Hidden reviews will be shown here when expanded -->
+            </div>
+            
+            <div class="toggle-reviews">
+                <button class="btn btn-secondary" id="toggleReviewsBtn">Показать все отзывы</button>
+            </div>
+            
+            <div class="add-review-form animate-on-scroll">
+                <h3>Оставить отзыв</h3>
+                <form id="reviewForm">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="reviewName" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="star-rating" id="starRating">
+                            <span class="star" data-rating="1">★</span>
+                            <span class="star" data-rating="2">★</span>
+                            <span class="star" data-rating="3">★</span>
+                            <span class="star" data-rating="4">★</span>
+                            <span class="star" data-rating="5">★</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="reviewText" placeholder="Ваш отзыв" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Отправить отзыв</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- External Links Section -->
+    <section class="section" id="links">
+        <div class="container">
+            <div class="section-title">
+                <h2>Мы на других площадках</h2>
+            </div>
+            <div class="external-links">
+                <p>Вы можете найти нас на популярных сервисах и оставить отзыв о нашей работе</p>
+                <div class="links-container">
+                    <a href="https://www.avito.ru/glazov/predlozheniya_uslug/remont_noutbukov_televizorov_pristavok_3630080756?utm_campaign=native&utm_medium=item_page_android&utm_source=soc_sharing_seller" class="external-link animate-on-scroll" target="_blank">
+                        <i class="fab fa-avito"></i>
+                        Авито
+                    </a>
+                    <a href="https://yandex.ru/uslugi/profile/AleksejI-1855998" class="external-link animate-on-scroll" target="_blank">
+                        <i class="fab fa-yandex"></i>
+                        Яндекс Услуги
+                    </a>
+                    <a href="https://profi.ru/profile/IvshinAS" class="external-link animate-on-scroll" target="_blank">
+                        <i class="fas fa-briefcase"></i>
+                        Профи.ру
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Свяжитесь с нами</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="info-item animate-on-scroll">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-text">
+                            <h3>Наш адрес</h3>
+                            <p id="contact-address">г. Глазов, ул. Динамо, д. 2 (магазин "Инструменты и точка")</p>
+                        </div>
+                    </div>
+                    <div class="info-item animate-on-scroll">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-text">
+                            <h3>Телефон для связи</h3>
+                            <p id="contact-phone">+7 (912) 010-78-84</p>
+                        </div>
+                    </div>
+                    <div class="info-item animate-on-scroll">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-text">
+                            <h3>Email</h3>
+                            <p id="contact-email">aleksei18rus@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item animate-on-scroll">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-text">
+                            <h3>Режим работы</h3>
+                            <p id="contact-hours">Пн-Пт: 9:00 - 20:00<br>Сб-Вс: 10:00 - 18:00</p>
+                        </div>
+                    </div>
+                    <div class="social-links animate-on-scroll">
+                        <a href="https://t.me/89501502965" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="https://wa.me/89501502965" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://vk.com/notebookglazov" target="_blank"><i class="fab fa-vk"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form animate-on-scroll">
+                    <div class="info-text">
+                        <h3>Свяжитесь с нами удобным способом</h3>
+                        <p>Вы можете связаться с нами по телефону, через мессенджеры или социальные сети. Мы всегда готовы ответить на ваши вопросы и помочь с ремонтом вашей техники.</p>
+                        <p>Также вы можете оставить заявку на бесплатную консультацию по телефону или в мессенджерах.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="map animate-on-scroll">
+                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A1b5d2c4e7e5d7d4e4a4d4e4a4d4e4a4d4e4a4d4e4a4d4e4a4d4e4a4d4e4a4d4e4a&amp;source=constructor" width="100%" height="300" frameborder="0"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ПрофСервис18</h3>
+                    <p>Профессиональный ремонт техники в Глазове с 2007 года. Качество, надежность и доступные цены.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Наши услуги</h3>
+                    <ul class="footer-links">
+                        <li><a href="#services">Ремонт телевизоров</a></li>
+                        <li><a href="#services">Ремонт ноутбуков</a></li>
+                        <li><a href="#services">Ремонт телефонов</a></li>
+                        <li><a href="#services">Ремонт консолей</a></li>
+                        <li><a href="#services">3D-печать</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> <span id="footer-address">г. Глазов, ул. Динамо, д. 2</span></li>
+                        <li><i class="fas fa-phone"></i> <span id="footer-phone">+7 (912) 010-78-84</span></li>
+                        <li><i class="fas fa-envelope"></i> <span id="footer-email">aleksei18rus@gmail.com</span></li>
+                    </ul>
+                    <div class="footer-social-links">
+                        <a href="https://t.me/89501502965" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="https://wa.me/89501502965" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://vk.com/notebookglazov" target="_blank"><i class="fab fa-vk"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 ПрофСервис18. Все права защищены. profservice18.ru</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-toggle" id="adminToggle">
+            <i class="fas fa-cog"></i>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-content">
+            <div class="login-header">
+                <h2>Вход для администратора</h2>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Логин</label>
+                    <input type="text" class="form-control" id="loginUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" class="form-control" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Войти</button>
+            </form>
+            <div class="login-error" id="loginError">
+                Неверный логин или пароль
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Modal -->
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-content">
+            <div class="admin-header">
+                <h2>Панель администратора</h2>
+                <button class="close-admin" id="closeAdmin">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="admin-section">
+                <h3>Управление галереей</h3>
+                <p>Для добавления фото в галерею загрузите изображения в папку <code>/gallery</code> на GitHub.</p>
+                <p>Все фото из папки gallery автоматически отобразятся в галерее.</p>
+            </div>
+            
+            <div class="admin-section">
+                <h3>Управление отзывами</h3>
+                <div class="admin-reviews" id="adminReviews">
+                    <!-- Admin reviews will be added here -->
+                </div>
+            </div>
+            
+            <div class="admin-section">
+                <h3>Управление контактами</h3>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="text" class="form-control" id="adminPhone" value="+7 (912) 010-78-84">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="adminEmail" value="aleksei18rus@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label>Адрес</label>
+                    <input type="text" class="form-control" id="adminAddress" value="г. Глазов, ул. Динамо, д. 2 (магазин 'Инструменты и точка')">
+                </div>
+                <div class="form-group">
+                    <label>Режим работы</label>
+                    <input type="text" class="form-control" id="adminHours" value="Пн-Пт: 9:00 - 20:00, Сб-Вс: 10:00 - 18:00">
+                </div>
+                <button class="btn" id="saveContactsBtn">Сохранить контакты</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // Animation on Scroll
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if(elementPosition < screenPosition) {
+                    element.classList.add('animated');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Custom Background Image
+        function setCustomBackground() {
+            const customBg = './img/background.jpg';
+            const img = new Image();
+            img.onload = function() {
+                document.documentElement.style.setProperty('--hero-bg', `url('${customBg}')`);
+            };
+            img.onerror = function() {
+                // Use default background if custom image doesn't exist
+                document.documentElement.style.setProperty('--hero-bg', "url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80')");
+            };
+            img.src = customBg;
+        }
+
+        // Workshop Carousel
+        const workshopSlides = document.getElementById('workshopSlides');
+        const workshopPrev = document.getElementById('workshopPrev');
+        const workshopNext = document.getElementById('workshopNext');
+        const workshopNav = document.getElementById('workshopNav');
+        const workshopDots = workshopNav.querySelectorAll('.workshop-dot');
+        
+        let currentWorkshopSlide = 0;
+        const workshopSlideCount = workshopSlides.children.length;
+        
+        // Initialize workshop images
+        function initializeWorkshopImages() {
+            // Check which images actually exist
+            const workshopImages = [
+                './img/mast1.jpg',
+                './img/mast2.jpg', 
+                './img/mast3.jpg'
+            ];
+            
+            // Update slides based on existing images
+            for (let i = 0; i < workshopSlideCount - 1; i++) {
+                const img = workshopSlides.children[i].querySelector('img');
+                if (img && !workshopImages[i]) {
+                    // If image doesn't exist, hide the slide
+                    workshopSlides.children[i].style.display = 'none';
+                }
+            }
+        }
+        
+        // Update workshop carousel
+        function updateWorkshopCarousel() {
+            workshopSlides.style.transform = `translateX(-${currentWorkshopSlide * 100}%)`;
+            
+            // Update dots
+            workshopDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentWorkshopSlide);
+            });
+        }
+        
+        // Next workshop slide
+        function nextWorkshopSlide() {
+            currentWorkshopSlide = (currentWorkshopSlide + 1) % workshopSlideCount;
+            updateWorkshopCarousel();
+        }
+        
+        // Previous workshop slide
+        function prevWorkshopSlide() {
+            currentWorkshopSlide = (currentWorkshopSlide - 1 + workshopSlideCount) % workshopSlideCount;
+            updateWorkshopCarousel();
+        }
+        
+        // Event listeners for workshop carousel
+        workshopPrev.addEventListener('click', prevWorkshopSlide);
+        workshopNext.addEventListener('click', nextWorkshopSlide);
+        
+        // Dot navigation
+        workshopDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentWorkshopSlide = index;
+                updateWorkshopCarousel();
+            });
+        });
+        
+        // Auto-advance workshop carousel
+        let workshopInterval = setInterval(nextWorkshopSlide, 5000);
+        
+        // Pause auto-advance on hover
+        workshopSlides.parentElement.addEventListener('mouseenter', () => {
+            clearInterval(workshopInterval);
+        });
+        
+        workshopSlides.parentElement.addEventListener('mouseleave', () => {
+            workshopInterval = setInterval(nextWorkshopSlide, 5000);
+        });
+
+        // Gallery Carousel
+        const gallerySlides = document.getElementById('gallerySlides');
+        const galleryNav = document.getElementById('galleryNav');
+        const galleryPrev = document.getElementById('galleryPrev');
+        const galleryNext = document.getElementById('galleryNext');
+        
+        let currentGallerySlide = 0;
+        let galleryImages = [];
+        
+        // Initialize gallery with images from gallery folder
+        function initializeGallery() {
+            // This would typically be populated from a server
+            // For GitHub Pages, you'll need to manually list your images
+            galleryImages = [
+                './gallery/photo1.jpg',
+                './gallery/photo2.jpg',
+                './gallery/photo3.jpg',
+                './gallery/photo4.jpg',
+                './gallery/photo5.jpg',
+                './gallery/photo6.jpg',
+                './gallery/photo7.jpg',
+                './gallery/photo8.jpg'
+                // Add more images as needed
+            ];
+            
+            // Filter out images that might not exist
+            galleryImages = galleryImages.filter(src => src && src.trim() !== '');
+            
+            renderGallery();
+        }
+        
+        // Render gallery
+        function renderGallery() {
+            gallerySlides.innerHTML = '';
+            galleryNav.innerHTML = '';
+            
+            galleryImages.forEach((imageSrc, index) => {
+                // Skip empty or invalid URLs
+                if (!imageSrc || imageSrc.trim() === '') return;
+                
+                // Create slide
+                const slide = document.createElement('div');
+                slide.className = 'gallery-slide';
+                
+                const img = document.createElement('img');
+                img.src = imageSrc;
+                img.alt = `Пример работы ${index + 1}`;
+                img.loading = 'lazy';
+                img.addEventListener('click', () => openGalleryLightbox(index));
+                img.onerror = function() {
+                    // If image fails to load, remove the item
+                    slide.style.display = 'none';
+                };
+                
+                slide.appendChild(img);
+                gallerySlides.appendChild(slide);
+                
+                // Create thumbnail
+                const thumb = document.createElement('div');
+                thumb.className = 'gallery-thumb';
+                if (index === 0) thumb.classList.add('active');
+                thumb.setAttribute('data-index', index);
+                
+                const thumbImg = document.createElement('img');
+                thumbImg.src = imageSrc;
+                thumbImg.alt = `Пример работы ${index + 1}`;
+                
+                thumb.appendChild(thumbImg);
+                galleryNav.appendChild(thumb);
+                
+                // Thumb click event
+                thumb.addEventListener('click', () => {
+                    currentGallerySlide = index;
+                    updateGalleryCarousel();
+                });
+            });
+            
+            // Update gallery carousel
+            updateGalleryCarousel();
+        }
+        
+        // Update gallery carousel
+        function updateGalleryCarousel() {
+            gallerySlides.style.transform = `translateX(-${currentGallerySlide * 100}%)`;
+            
+            // Update thumbnails
+            const thumbs = galleryNav.querySelectorAll('.gallery-thumb');
+            thumbs.forEach((thumb, index) => {
+                thumb.classList.toggle('active', index === currentGallerySlide);
+            });
+        }
+        
+        // Next gallery slide
+        function nextGallerySlide() {
+            currentGallerySlide = (currentGallerySlide + 1) % galleryImages.length;
+            updateGalleryCarousel();
+        }
+        
+        // Previous gallery slide
+        function prevGallerySlide() {
+            currentGallerySlide = (currentGallerySlide - 1 + galleryImages.length) % galleryImages.length;
+            updateGalleryCarousel();
+        }
+        
+        // Event listeners for gallery carousel
+        galleryPrev.addEventListener('click', prevGallerySlide);
+        galleryNext.addEventListener('click', nextGallerySlide);
+        
+        // Auto-advance gallery carousel
+        let galleryInterval = setInterval(nextGallerySlide, 4000);
+        
+        // Pause auto-advance on hover
+        gallerySlides.parentElement.addEventListener('mouseenter', () => {
+            clearInterval(galleryInterval);
+        });
+        
+        gallerySlides.parentElement.addEventListener('mouseleave', () => {
+            galleryInterval = setInterval(nextGallerySlide, 4000);
+        });
+
+        // Lightbox Modal for Gallery
+        const galleryLightbox = document.getElementById('galleryLightbox');
+        const galleryLightboxImage = document.getElementById('galleryLightboxImage');
+        const galleryLightboxClose = document.getElementById('galleryLightboxClose');
+        const galleryLightboxPrev = document.getElementById('galleryLightboxPrev');
+        const galleryLightboxNext = document.getElementById('galleryLightboxNext');
+
+        // Open gallery lightbox
+        function openGalleryLightbox(index) {
+            currentGallerySlide = index;
+            galleryLightboxImage.src = galleryImages[currentGallerySlide];
+            galleryLightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close gallery lightbox
+        function closeGalleryLightbox() {
+            galleryLightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Next gallery image in lightbox
+        function nextGalleryLightboxImage() {
+            currentGallerySlide = (currentGallerySlide + 1) % galleryImages.length;
+            galleryLightboxImage.src = galleryImages[currentGallerySlide];
+            updateGalleryCarousel();
+        }
+
+        // Previous gallery image in lightbox
+        function prevGalleryLightboxImage() {
+            currentGallerySlide = (currentGallerySlide - 1 + galleryImages.length) % galleryImages.length;
+            galleryLightboxImage.src = galleryImages[currentGallerySlide];
+            updateGalleryCarousel();
+        }
+
+        // Event listeners for gallery lightbox
+        galleryLightboxClose.addEventListener('click', closeGalleryLightbox);
+        galleryLightboxPrev.addEventListener('click', prevGalleryLightboxImage);
+        galleryLightboxNext.addEventListener('click', nextGalleryLightboxImage);
+
+        // Close lightbox on background click
+        galleryLightbox.addEventListener('click', (e) => {
+            if (e.target === galleryLightbox) {
+                closeGalleryLightbox();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (galleryLightbox.classList.contains('active')) {
+                if (e.key === 'Escape') closeGalleryLightbox();
+                if (e.key === 'ArrowLeft') prevGalleryLightboxImage();
+                if (e.key === 'ArrowRight') nextGalleryLightboxImage();
+            }
+        });
+
+        // Reviews Management with Collapsible
+        const reviewsContainer = document.getElementById('reviewsContainer');
+        const hiddenReviews = document.getElementById('hiddenReviews');
+        const toggleReviewsBtn = document.getElementById('toggleReviewsBtn');
+        const adminReviews = document.getElementById('adminReviews');
+        const reviewForm = document.getElementById('reviewForm');
+        const starRating = document.getElementById('starRating');
+        let currentRating = 0;
+        let reviewsExpanded = false;
+
+        // Initialize reviews
+        let reviews = JSON.parse(localStorage.getItem('reviews')) || [
+            {
+                name: 'Иван К.',
+                rating: 5,
+                text: 'Отличный сервис! Починили ноутбук за один день, хотя в других местах говорили, что ремонт займет неделю. Цены адекватные, мастер все объяснил и показал. Рекомендую!',
+                date: '2024-10-15'
+            },
+            {
+                name: 'Мария С.',
+                rating: 5,
+                text: 'Разбила экран телефона, думала, что придется покупать новый. В ПрофСервис18 заменили дисплей за разумные деньги, телефон как новый. Спасибо за качественную работу!',
+                date: '2024-09-28'
+            },
+            {
+                name: 'Алексей П.',
+                rating: 4,
+                text: 'Починили игровую консоль, которая не включалась. Сделали быстро, дали гарантию. Единственное - пришлось немного подождать запчасть, но это мелочи. В целом все отлично!',
+                date: '2024-08-12'
+            },
+            {
+                name: 'Ольга В.',
+                rating: 5,
+                text: 'Заказывала 3D-печать детали для старого пылесоса. Напечатали быстро, качественно, деталь идеально подошла. Очень довольна сервисом!',
+                date: '2024-07-05'
+            },
+            {
+                name: 'Дмитрий Н.',
+                rating: 5,
+                text: 'Ремонтировал телевизор. Мастер приехал на дом, быстро нашел проблему и починил. Очень вежливый и профессиональный. Буду рекомендовать знакомым!',
+                date: '2024-06-18'
+            }
+        ];
+
+        // Function to render reviews
+        function renderReviews() {
+            reviewsContainer.innerHTML = '';
+            hiddenReviews.innerHTML = '';
+            
+            // Sort reviews by date (newest first)
+            const sortedReviews = [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Show last 3 reviews
+            const visibleReviews = sortedReviews.slice(0, 3);
+            const hiddenReviewsList = sortedReviews.slice(3);
+            
+            visibleReviews.forEach((review, index) => {
+                const reviewCard = createReviewCard(review);
+                reviewsContainer.appendChild(reviewCard);
+            });
+            
+            hiddenReviewsList.forEach((review, index) => {
+                const reviewCard = createReviewCard(review);
+                hiddenReviews.appendChild(reviewCard);
+            });
+            
+            // Update toggle button text
+            toggleReviewsBtn.textContent = hiddenReviewsList.length > 0 ? 
+                `Показать все отзывы (${hiddenReviewsList.length}+)` : 
+                'Показать все отзывы';
+            
+            // Render admin reviews
+            renderAdminReviews();
+        }
+
+        // Function to create review card
+        function createReviewCard(review) {
+            const reviewCard = document.createElement('div');
+            reviewCard.className = 'review-card animate-on-scroll animated';
+            
+            const reviewHeader = document.createElement('div');
+            reviewHeader.className = 'review-header';
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'review-avatar';
+            avatar.textContent = review.name.split(' ').map(n => n[0]).join('');
+            
+            const reviewInfo = document.createElement('div');
+            reviewInfo.className = 'review-info';
+            
+            const name = document.createElement('h4');
+            name.textContent = review.name;
+            
+            const date = document.createElement('div');
+            date.className = 'review-date';
+            date.textContent = formatDate(review.date);
+            
+            reviewInfo.appendChild(name);
+            reviewInfo.appendChild(date);
+            reviewHeader.appendChild(avatar);
+            reviewHeader.appendChild(reviewInfo);
+            
+            const stars = document.createElement('div');
+            stars.className = 'review-stars';
+            stars.innerHTML = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+            
+            const text = document.createElement('p');
+            text.className = 'review-text';
+            text.textContent = review.text;
+            
+            reviewCard.appendChild(reviewHeader);
+            reviewCard.appendChild(stars);
+            reviewCard.appendChild(text);
+            
+            return reviewCard;
+        }
+
+        // Toggle reviews visibility
+        toggleReviewsBtn.addEventListener('click', () => {
+            reviewsExpanded = !reviewsExpanded;
+            hiddenReviews.classList.toggle('active', reviewsExpanded);
+            toggleReviewsBtn.textContent = reviewsExpanded ? 
+                'Скрыть отзывы' : 
+                `Показать все отзывы (${reviews.length - 3}+)`;
+        });
+
+        // Function to render admin reviews
+        function renderAdminReviews() {
+            adminReviews.innerHTML = '';
+            reviews.forEach((review, index) => {
+                const reviewItem = document.createElement('div');
+                reviewItem.className = 'admin-review-item';
+                
+                const reviewInfo = document.createElement('div');
+                reviewInfo.innerHTML = `
+                    <strong>${review.name}</strong> (${review.rating}★) - ${formatDate(review.date)}
+                    <br><small>${review.text.substring(0, 50)}${review.text.length > 50 ? '...' : ''}</small>
+                `;
+                
+                const reviewActions = document.createElement('div');
+                reviewActions.className = 'review-actions';
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-review';
+                deleteBtn.textContent = 'Удалить';
+                deleteBtn.onclick = () => deleteReview(index);
+                
+                reviewActions.appendChild(deleteBtn);
+                reviewItem.appendChild(reviewInfo);
+                reviewItem.appendChild(reviewActions);
+                adminReviews.appendChild(reviewItem);
+            });
+        }
+
+        // Function to delete review
+        function deleteReview(index) {
+            if (confirm('Вы уверены, что хотите удалить этот отзыв?')) {
+                reviews.splice(index, 1);
+                localStorage.setItem('reviews', JSON.stringify(reviews));
+                renderReviews();
+            }
+        }
+
+        // Function to format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('ru-RU', options);
+        }
+
+        // Star rating functionality
+        starRating.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = parseInt(this.getAttribute('data-rating'));
+                currentRating = rating;
+                
+                starRating.querySelectorAll('.star').forEach(s => {
+                    if (parseInt(s.getAttribute('data-rating')) <= rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Review form submission
+        reviewForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (currentRating === 0) {
+                alert('Пожалуйста, поставьте оценку');
+                return;
+            }
+            
+            const name = document.getElementById('reviewName').value;
+            const text = document.getElementById('reviewText').value;
+            
+            const newReview = {
+                name: name,
+                rating: currentRating,
+                text: text,
+                date: new Date().toISOString().split('T')[0]
+            };
+            
+            reviews.push(newReview);
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+            renderReviews();
+            
+            alert('Спасибо за ваш отзыв!');
+            reviewForm.reset();
+            
+            // Reset stars
+            starRating.querySelectorAll('.star').forEach(star => {
+                star.classList.remove('active');
+            });
+            currentRating = 0;
+            
+            // Collapse reviews if expanded
+            if (reviewsExpanded) {
+                hiddenReviews.classList.remove('active');
+                reviewsExpanded = false;
+                toggleReviewsBtn.textContent = `Показать все отзывы (${reviews.length - 3}+)`;
+            }
+        });
+
+        // Admin panel functionality
+        const adminPanel = document.getElementById('adminPanel');
+        const adminToggle = document.getElementById('adminToggle');
+        const adminModal = document.getElementById('adminModal');
+        const closeAdmin = document.getElementById('closeAdmin');
+        const loginModal = document.getElementById('loginModal');
+        const loginForm = document.getElementById('loginForm');
+        const loginError = document.getElementById('loginError');
+
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+        
+        // Show admin panel only if logged in
+        if (isLoggedIn) {
+            adminPanel.style.display = 'block';
+        }
+
+        // Show login modal when admin toggle is clicked
+        adminToggle.addEventListener('click', () => {
+            if (isLoggedIn) {
+                adminModal.classList.add('active');
+            } else {
+                loginModal.classList.add('active');
+            }
+        });
+
+        closeAdmin.addEventListener('click', () => {
+            adminModal.classList.remove('active');
+        });
+
+        // Login form submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (username === 'aleksei18rus' && password === 'm4rc3PAN11') {
+                localStorage.setItem('adminLoggedIn', 'true');
+                loginModal.classList.remove('active');
+                adminPanel.style.display = 'block';
+                adminModal.classList.add('active');
+                loginError.style.display = 'none';
+            } else {
+                loginError.style.display = 'block';
+            }
+        });
+
+        // Contact information management
+        const adminPhone = document.getElementById('adminPhone');
+        const adminEmail = document.getElementById('adminEmail');
+        const adminAddress = document.getElementById('adminAddress');
+        const adminHours = document.getElementById('adminHours');
+        const saveContactsBtn = document.getElementById('saveContactsBtn');
+
+        // Load saved contact information
+        const savedContacts = JSON.parse(localStorage.getItem('contactInfo'));
+        if (savedContacts) {
+            adminPhone.value = savedContacts.phone || '+7 (912) 010-78-84';
+            adminEmail.value = savedContacts.email || 'aleksei18rus@gmail.com';
+            adminAddress.value = savedContacts.address || 'г. Глазов, ул. Динамо, д. 2 (магазин "Инструменты и точка")';
+            adminHours.value = savedContacts.hours || 'Пн-Пт: 9:00 - 20:00, Сб-Вс: 10:00 - 18:00';
+            
+            // Update contact info on the page
+            updateContactInfo();
+        }
+
+        // Save contact information
+        saveContactsBtn.addEventListener('click', () => {
+            const contactInfo = {
+                phone: adminPhone.value,
+                email: adminEmail.value,
+                address: adminAddress.value,
+                hours: adminHours.value || 'Пн-Пт: 9:00 - 20:00, Сб-Вс: 10:00 - 18:00'
+            };
+            
+            localStorage.setItem('contactInfo', JSON.stringify(contactInfo));
+            updateContactInfo();
+            alert('Контактная информация обновлена!');
+        });
+
+        // Function to update contact information on the page
+        function updateContactInfo() {
+            const savedContacts = JSON.parse(localStorage.getItem('contactInfo'));
+            if (savedContacts) {
+                // Update contact section
+                document.getElementById('contact-phone').textContent = savedContacts.phone || '+7 (912) 010-78-84';
+                document.getElementById('contact-email').textContent = savedContacts.email || 'aleksei18rus@gmail.com';
+                document.getElementById('contact-address').textContent = savedContacts.address || 'г. Глазов, ул. Динамо, д. 2 (магазин "Инструменты и точка")';
+                
+                // Safely handle hours with fallback
+                const hours = savedContacts.hours || 'Пн-Пт: 9:00 - 20:00, Сб-Вс: 10:00 - 18:00';
+                document.getElementById('contact-hours').innerHTML = hours.replace ? hours.replace(', ', '<br>') : hours;
+                
+                // Update footer
+                document.getElementById('footer-phone').textContent = savedContacts.phone || '+7 (912) 010-78-84';
+                document.getElementById('footer-email').textContent = savedContacts.email || 'aleksei18rus@gmail.com';
+                document.getElementById('footer-address').textContent = savedContacts.address || 'г. Глазов, ул. Динамо, д. 2';
+            }
+        }
+
+        // Initialize everything on page load
+        setCustomBackground();
+        initializeWorkshopImages();
+        initializeGallery();
+        renderReviews();
+    </script>
+</body>
+</html>
