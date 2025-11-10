@@ -109,13 +109,13 @@ header {
     background-size: cover;
     background-position: center;
     color: white;
-    padding: 130px 0 100px;
+    padding: 180px 0 100px;
     text-align: center;
     margin-top: 70px;
 }
 
 .hero h1 {
-    font-size: 3.5rem;
+    font-size: 3.0rem;
     margin-bottom: 1rem;
     animation: fadeInUp 1s ease;
 }
