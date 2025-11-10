@@ -71,7 +71,9 @@ function initializeWorkshopImages() {
     const workshopImages = [
         './img/mast1.jpg',
         './img/mast2.jpg', 
-        './img/mast3.jpg'
+        './img/mast3.jpg',
+        './img/mast4.jpg'?
+
     ];
     
     // Update slides based on existing images
