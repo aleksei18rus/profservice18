@@ -121,7 +121,7 @@ header {
 }
 
 .hero h2 {
-    font-size: 2.3rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
     animation: fadeInUp 1s ease;
     display: none;
@@ -938,7 +938,6 @@ footer {
     .hero h2 {
         display: block;
         font-size: 2.2rem;
-.       margin-left: -5px;
         margin-bottom: 1.5rem;
         line-height: 1.3;
     }
