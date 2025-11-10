@@ -110,7 +110,7 @@ header {
     background-position: center;
     color: white;
     padding: 180px 0 100px;
-    text-align: left;
+    text-align: center;
     margin-top: 70px;
 }
 
@@ -121,7 +121,7 @@ header {
 }
 
 .hero h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
     animation: fadeInUp 1s ease;
     display: none;
