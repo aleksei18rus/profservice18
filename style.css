@@ -104,6 +104,7 @@ header {
 }
 
 /* Hero Section with customizable background */
+/* Hero Section with customizable background */
 .hero {
     background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9)), var(--hero-bg, url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'));
     background-size: cover;
@@ -115,9 +116,12 @@ header {
 }
 
 .hero h1 {
-    font-size: 3.0rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
     animation: fadeInUp 1s ease;
+    text-align: center;
+    width: 100%;
+    padding: 0 20px;
 }
 
 .hero h2 {
@@ -125,6 +129,17 @@ header {
     margin-bottom: 1rem;
     animation: fadeInUp 1s ease;
     display: none;
+    text-align: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.hero .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .hero p {
@@ -133,6 +148,8 @@ header {
     margin: 0 auto 2rem;
     animation: fadeInUp 1s ease 0.2s both;
     line-height: 1.8;
+    text-align: center;
+    padding: 0 20px;
 }
 
 .btn {
