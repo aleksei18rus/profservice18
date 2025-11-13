@@ -768,4 +768,4 @@ function initYandexMap() {
     } else {
         console.log('Yandex Maps API not loaded');
     }
-}
+} 
