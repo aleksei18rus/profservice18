@@ -1007,3 +1007,268 @@ footer {
         display: none;
     }
 }
+/* SEO улучшения - добавляем в конец файла */
+.hero-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 2rem auto;
+    max-width: 800px;
+    width: 100%;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    text-align: center;
+}
+
+.feature-item i {
+    color: var(--secondary);
+    font-size: 1.1rem;
+}
+
+.feature-item span {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.btn-call {
+    background-color: #2ecc71;
+}
+
+.btn-call:hover {
+    background-color: #27ae60;
+}
+
+.btn-whatsapp {
+    background-color: #25D366;
+}
+
+.btn-whatsapp:hover {
+    background-color: #128C7E;
+}
+
+/* Кликабельные телефоны */
+.clickable-phone {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.clickable-phone:hover {
+    color: var(--secondary);
+}
+
+/* Адаптивность для новых элементов */
+@media (max-width: 768px) {
+    .hero-features {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+    }
+}
+/* SEO улучшения - добавляем в конец файла */
+.hero-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 1.5rem auto;
+    max-width: 500px;
+    width: 100%;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px;
+    border-radius: 6px;
+    backdrop-filter: blur(5px);
+    text-align: left;
+    font-size: 0.85rem;
+}
+
+.feature-item i {
+    color: var(--secondary);
+    font-size: 1rem;
+    min-width: 20px;
+}
+
+.feature-item span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+/* Адаптивность для новых элементов */
+@media (max-width: 768px) {
+    .hero-features {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+        gap: 8px;
+    }
+    
+    .feature-item {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+    }
+    
+    .feature-item i {
+        font-size: 0.9rem;
+    }
+    
+    .feature-item span {
+        font-size: 0.75rem;
+    }
+}
+/* Popup скидки */
+.discount-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 3000;
+    justify-content: center;
+    align-items: center;
+}
+
+.discount-popup.active {
+    display: flex;
+}
+
+.popup-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: popupShow 0.3s ease-out;
+}
+
+@keyframes popupShow {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s;
+}
+
+.popup-close:hover {
+    color: var(--accent);
+}
+
+.popup-icon {
+    font-size: 3rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.popup-content h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.popup-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    color: #666;
+}
+
+.popup-code {
+    background: var(--light);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    border: 2px dashed var(--secondary);
+}
+
+.popup-code strong {
+    color: var(--accent);
+    font-size: 1.2rem;
+}
+
+.btn-accent {
+    background: var(--accent);
+    color: white;
+    width: 100%;
+}
+
+.btn-accent:hover {
+    background: #c0392b;
+}
+.review-service {
+    font-size: 0.8rem;
+    color: var(--secondary);
+    font-weight: 500;
+    margin-top: 2px;
+}
+/* Стили для email ссылок */
+a[href^="mailto:"] {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a[href^="mailto:"]:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+}
+
+/* Конкретно для email в контактах и футере */
+#contact-email a, #footer-email a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+#contact-email a:hover, #footer-email a:hover {
+    color: var(--secondary);
+}
