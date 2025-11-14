@@ -1,3 +1,4 @@
+/* Основные стили */
 * {
     margin: 0;
     padding: 0;
@@ -29,7 +30,7 @@ body {
     padding: 0 20px;
 }
 
-/* Header Styles */
+/* Стили шапки */
 header {
     background-color: var(--primary);
     color: white;
@@ -103,7 +104,7 @@ header {
     cursor: pointer;
 }
 
-/* Hero Section with customizable background */
+/* Главный баннер */
 .hero {
     background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9)), var(--hero-bg, url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'));
     background-size: cover;
@@ -174,7 +175,7 @@ header {
     background-color: #c0392b;
 }
 
-/* About Section */
+/* Блоки секций */
 .section {
     padding: 100px 0;
 }
@@ -202,6 +203,72 @@ header {
     transform: translateX(-50%);
 }
 
+/* Блок преимуществ в герое */
+.hero-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 1.5rem auto;
+    max-width: 500px;
+    width: 100%;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px;
+    border-radius: 6px;
+    backdrop-filter: blur(5px);
+    text-align: left;
+    font-size: 0.85rem;
+}
+
+.feature-item i {
+    color: var(--secondary);
+    font-size: 1rem;
+    min-width: 20px;
+}
+
+.feature-item span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+/* Подзаголовок героя */
+.hero-subtitle {
+    font-size: 1.3rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    font-weight: 400;
+    text-align: center;
+}
+
+/* Блок локального SEO */
+.local-seo {
+    background: var(--light);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.local-seo h2 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.local-seo p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* О нас */
 .about-content {
     display: flex;
     align-items: center;
@@ -224,7 +291,7 @@ header {
     line-height: 1.7;
 }
 
-/* Workshop Carousel */
+/* Карусель мастерской */
 .workshop-carousel {
     flex: 1;
     position: relative;
@@ -306,7 +373,7 @@ header {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* Services Section */
+/* Услуги */
 .services {
     background-color: var(--light);
 }
@@ -373,7 +440,7 @@ header {
     color: var(--primary);
 }
 
-/* Gallery Section - Carousel */
+/* Галерея */
 .gallery {
     background-color: white;
 }
@@ -467,7 +534,7 @@ header {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* Lightbox Modal */
+/* Модальное окно галереи */
 .lightbox {
     display: none;
     position: fixed;
@@ -538,146 +605,56 @@ header {
     background: white;
 }
 
-/* Reviews Section with Collapsible */
-.reviews {
-    background-color: var(--light);
-}
-
-.reviews-container {
+/* Виджеты ВКонтакте */
+.vk-widgets-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-    margin-bottom: 40px;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-top: 2rem;
 }
 
-.review-card {
-    background-color: white;
-    border-radius: 10px;
+@media (min-width: 992px) {
+    .vk-widgets-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+}
+
+.vk-comments-widget, .vk-posts-widget {
+    background: white;
+    border-radius: 15px;
     padding: 25px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s;
-    position: relative;
-}
-
-.review-card:hover {
-    transform: translateY(-5px);
-}
-
-.review-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.review-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: var(--secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    margin-right: 15px;
-    font-size: 1.2rem;
-}
-
-.review-info h4 {
-    font-size: 1.1rem;
-    margin-bottom: 5px;
-}
-
-.review-date {
-    font-size: 0.9rem;
-    color: #777;
-}
-
-.review-stars {
-    color: #f1c40f;
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-}
-
-.review-text {
-    line-height: 1.5;
-    font-size: 1rem;
-}
-
-.hidden-reviews {
-    display: none;
-}
-
-.hidden-reviews.active {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
-}
-
-.toggle-reviews {
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e1e8ed;
     text-align: center;
-    margin-top: 30px;
 }
 
-.add-review-form {
-    background-color: white;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.add-review-form h3 {
+.vk-comments-widget h3, .vk-posts-widget h3 {
     text-align: center;
-    margin-bottom: 20px;
     color: var(--primary);
-    font-size: 1.5rem;
-}
-
-.star-rating {
-    display: flex;
-    justify-content: center;
     margin-bottom: 20px;
-    gap: 5px;
+    font-size: 1.4rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--secondary);
 }
 
-.star {
-    font-size: 2rem;
-    color: #ddd;
-    cursor: pointer;
-    transition: color 0.2s;
+.vk-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.star.active {
-    color: #f1c40f;
+/* Адаптация виджетов ВК */
+#vk_comments, 
+#vk_post_407958737_70,
+#vk_post_407958737_61,
+#vk_post_407958737_56 {
+    width: 100% !important;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-control {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-.form-control:focus {
-    border-color: var(--secondary);
-    outline: none;
-}
-
-textarea.form-control {
-    min-height: 120px;
-    resize: vertical;
-}
-
-/* External Links Section */
+/* Внешние ссылки */
 .external-links {
     text-align: center;
 }
@@ -717,7 +694,7 @@ textarea.form-control {
     color: var(--avito);
 }
 
-/* Contact Section */
+/* Контакты */
 .contact {
     background-color: var(--light);
 }
@@ -729,6 +706,7 @@ textarea.form-control {
 
 .contact-info {
     flex: 1;
+    text-align: left; /* Изменено с center на left */
 }
 
 .contact-form {
@@ -739,6 +717,11 @@ textarea.form-control {
     display: flex;
     align-items: flex-start;
     margin-bottom: 2rem;
+    justify-content: flex-start; /* Изменено с center на flex-start */
+    text-align: left;
+    max-width: 100%; /* Убрано ограничение ширины */
+    margin-left: 0; /* Убрано auto */
+    margin-right: 0; /* Убрано auto */
 }
 
 .info-icon {
@@ -746,18 +729,25 @@ textarea.form-control {
     color: var(--secondary);
     margin-right: 15px;
     margin-top: 5px;
+    flex-shrink: 0; /* Чтобы иконка не сжималась */
+}
+
+.info-text {
+    text-align: left;
 }
 
 .info-text h3 {
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
     color: var(--primary);
+    text-align: left;
 }
 
 .social-links {
     display: flex;
     gap: 15px;
     margin-top: 1rem;
+    justify-content: flex-start; /* Изменено с center на flex-start */
 }
 
 .social-links a {
@@ -808,7 +798,7 @@ textarea.form-control {
     border: none;
 }
 
-/* Footer */
+/* Подвал */
 footer {
     background-color: var(--primary);
     color: white;
@@ -821,11 +811,13 @@ footer {
     flex-wrap: wrap;
     gap: 30px;
     margin-bottom: 30px;
+    text-align: left;
 }
 
 .footer-column {
     flex: 1;
     min-width: 200px;
+    text-align: left;
 }
 
 .footer-column h3 {
@@ -833,6 +825,7 @@ footer {
     margin-bottom: 1.5rem;
     position: relative;
     padding-bottom: 10px;
+    text-align: left;
 }
 
 .footer-column h3::after {
@@ -845,30 +838,63 @@ footer {
     left: 0;
 }
 
+.footer-column p {
+    text-align: left;
+    line-height: 1.6;
+}
+
 .footer-links {
     list-style: none;
+    text-align: left;
+    padding: 0;
+    margin: 0;
 }
 
 .footer-links li {
     margin-bottom: 10px;
+    text-align: left;
 }
 
 .footer-links a {
     color: #ddd;
     text-decoration: none;
     transition: color 0.3s;
+    text-align: left;
 }
 
 .footer-links a:hover {
     color: var(--secondary);
 }
 
+/* Контакты в футере - только выравнивание текста */
+.footer-links li {
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.footer-links i {
+    margin-right: 10px;
+    width: 16px;
+    color: var(--secondary);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.footer-links span {
+    text-align: left;
+    flex: 1;
+}
+
+/* Социальные иконки - только выравнивание, стили остаются прежними */
 .footer-social-links {
     display: flex;
     gap: 15px;
     margin-top: 1rem;
+    justify-content: flex-start;
 }
 
+/* Стили для социальных иконок остаются без изменений */
 .footer-social-links a {
     display: inline-flex;
     align-items: center;
@@ -895,7 +921,44 @@ footer {
     color: #aaa;
 }
 
-/* Animations */
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: left;
+    }
+    
+    .footer-column {
+        text-align: left;
+    }
+    
+    .footer-column h3 {
+        text-align: left;
+    }
+    
+    .footer-column h3::after {
+        left: 0;
+    }
+    
+    .footer-links {
+        text-align: left;
+    }
+    
+    .footer-links li {
+        justify-content: flex-start;
+        text-align: left;
+    }
+    
+    .footer-social-links {
+        justify-content: flex-start;
+    }
+    
+    .footer-column p {
+        text-align: left;
+    }
+}
+
+/* Анимации */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -918,236 +981,7 @@ footer {
     transform: translateY(0);
 }
 
-/* Responsive Styles */
-@media (max-width: 992px) {
-    .about-content, .contact-container {
-        flex-direction: column;
-    }
-    
-    .workshop-carousel {
-        margin-top: 30px;
-    }
-}
-
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: var(--primary);
-        flex-direction: column;
-        padding: 20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links li {
-        margin: 10px 0;
-    }
-
-    .mobile-menu {
-        display: block;
-    }
-
-    .hero h1 {
-        display: none;
-    }
-
-    .hero h2 {
-        display: block;
-        font-size: 2.2rem;
-        margin-bottom: 1.5rem;
-        line-height: 1.3;
-    }
-
-    .hero p {
-        font-size: 1.1rem;
-        line-height: 1.7;
-        margin-bottom: 2.5rem;
-    }
-    
-    .gallery-carousel {
-        height: 300px;
-    }
-    
-    .gallery-thumb {
-        width: 60px;
-        height: 45px;
-    }
-    
-    .reviews-container, .hidden-reviews.active {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Mobile-first подход для заголовков */
-.hero h1 {
-    display: none;
-}
-
-.hero h2 {
-    display: block;
-    font-size: 2.2rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.3;
-}
-
-@media (min-width: 769px) {
-    .hero h1 {
-        display: block;
-        font-size: 3.5rem;
-    }
-    
-    .hero h2 {
-        display: none;
-    }
-}
-/* SEO улучшения - добавляем в конец файла */
-.hero-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin: 2rem auto;
-    max-width: 800px;
-    width: 100%;
-}
-
-.feature-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 12px;
-    border-radius: 8px;
-    backdrop-filter: blur(10px);
-    text-align: center;
-}
-
-.feature-item i {
-    color: var(--secondary);
-    font-size: 1.1rem;
-}
-
-.feature-item span {
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-}
-
-.btn-call {
-    background-color: #2ecc71;
-}
-
-.btn-call:hover {
-    background-color: #27ae60;
-}
-
-.btn-whatsapp {
-    background-color: #25D366;
-}
-
-.btn-whatsapp:hover {
-    background-color: #128C7E;
-}
-
-/* Кликабельные телефоны */
-.clickable-phone {
-    color: inherit;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.clickable-phone:hover {
-    color: var(--secondary);
-}
-
-/* Адаптивность для новых элементов */
-@media (max-width: 768px) {
-    .hero-features {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-    
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .hero-buttons .btn {
-        width: 100%;
-        max-width: 280px;
-        justify-content: center;
-    }
-}
-/* SEO улучшения - добавляем в конец файла */
-.hero-features {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin: 1.5rem auto;
-    max-width: 500px;
-    width: 100%;
-}
-
-.feature-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 10px;
-    border-radius: 6px;
-    backdrop-filter: blur(5px);
-    text-align: left;
-    font-size: 0.85rem;
-}
-
-.feature-item i {
-    color: var(--secondary);
-    font-size: 1rem;
-    min-width: 20px;
-}
-
-.feature-item span {
-    font-size: 0.8rem;
-    font-weight: 500;
-    line-height: 1.2;
-}
-
-/* Адаптивность для новых элементов */
-@media (max-width: 768px) {
-    .hero-features {
-        grid-template-columns: 1fr;
-        max-width: 300px;
-        gap: 8px;
-    }
-    
-    .feature-item {
-        padding: 8px 10px;
-        font-size: 0.8rem;
-    }
-    
-    .feature-item i {
-        font-size: 0.9rem;
-    }
-    
-    .feature-item span {
-        font-size: 0.75rem;
-    }
-}
-/* Popup скидки */
+/* Всплывающее окно скидки */
 .discount-popup {
     display: none;
     position: fixed;
@@ -1244,12 +1078,170 @@ footer {
 .btn-accent:hover {
     background: #c0392b;
 }
-.review-service {
-    font-size: 0.8rem;
-    color: var(--secondary);
-    font-weight: 500;
-    margin-top: 2px;
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .about-content, .contact-container {
+        flex-direction: column;
+    }
+    
+    .workshop-carousel {
+        margin-top: 30px;
+    }
 }
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--primary);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .hero h1 {
+        display: none;
+    }
+
+    .hero h2 {
+        display: block;
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.3;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 2.5rem;
+    }
+    
+    .gallery-carousel {
+        height: 300px;
+    }
+    
+    .gallery-thumb {
+        width: 60px;
+        height: 45px;
+    }
+    
+    .hero-features {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+        gap: 8px;
+    }
+    
+    .feature-item {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+    }
+    
+    .feature-item i {
+        font-size: 0.9rem;
+    }
+    
+    .feature-item span {
+        font-size: 0.75rem;
+    }
+    
+    .vk-widgets-container {
+        gap: 25px;
+    }
+    
+    .vk-comments-widget, .vk-posts-widget {
+        padding: 20px 15px;
+        border-radius: 12px;
+    }
+    
+    .vk-comments-widget h3, .vk-posts-widget h3 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .info-icon {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-column {
+        text-align: center;
+    }
+    
+    .footer-links {
+        text-align: center;
+    }
+}
+
+/* Mobile-first подход для заголовков */
+.hero h1 {
+    display: none;
+}
+
+.hero h2 {
+    display: block;
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+@media (min-width: 769px) {
+    .hero h1 {
+        display: block;
+        font-size: 3.5rem;
+    }
+    
+    .hero h2 {
+        display: none;
+    }
+}
+
+/* Оптимизация загрузки изображений */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+img[loading="lazy"].loaded {
+    opacity: 1;
+}
+
+/* Кликабельные телефоны */
+.clickable-phone {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.clickable-phone:hover {
+    color: var(--secondary);
+}
+
 /* Стили для email ссылок */
 a[href^="mailto:"] {
     color: inherit;
@@ -1271,4 +1263,16 @@ a[href^="mailto:"]:hover {
 
 #contact-email a:hover, #footer-email a:hover {
     color: var(--secondary);
+}
+
+/* Улучшение для печати */
+@media print {
+    .hero, .discount-popup, .mobile-menu {
+        display: none;
+    }
+    
+    body {
+        color: #000;
+        background: #fff;
+    }
 }
