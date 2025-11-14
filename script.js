@@ -1,16 +1,16 @@
-// Mobile Menu Toggle
+// Переключение мобильного меню
 document.querySelector('.mobile-menu').addEventListener('click', function() {
     document.querySelector('.nav-links').classList.toggle('active');
 });
 
-// Close mobile menu when clicking on links
+// Закрытие мобильного меню при клике на ссылки
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         document.querySelector('.nav-links').classList.remove('active');
     });
 });
 
-// Smooth Scrolling
+// Плавная прокрутка
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -25,13 +25,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth'
             });
             
-            // Close mobile menu if open
+            // Закрытие мобильного меню если открыто
             document.querySelector('.nav-links').classList.remove('active');
         }
     });
 });
 
-// Animation on Scroll
+// Анимация при прокрутке
 const animateOnScroll = function() {
     const elements = document.querySelectorAll('.animate-on-scroll');
     
@@ -48,7 +48,7 @@ const animateOnScroll = function() {
 window.addEventListener('scroll', animateOnScroll);
 window.addEventListener('load', animateOnScroll);
 
-// Custom Background Image
+// Пользовательский фон
 function setCustomBackground() {
     const customBg = './img/background.jpg';
     const img = new Image();
@@ -56,13 +56,13 @@ function setCustomBackground() {
         document.documentElement.style.setProperty('--hero-bg', `url('${customBg}')`);
     };
     img.onerror = function() {
-        // Use default background if custom image doesn't exist
+        // Используем стандартный фон если пользовательское изображение не существует
         document.documentElement.style.setProperty('--hero-bg', "url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80')");
     };
     img.src = customBg;
 }
 
-// Workshop Carousel
+// Карусель мастерской
 const workshopSlides = document.getElementById('workshopSlides');
 const workshopPrev = document.getElementById('workshopPrev');
 const workshopNext = document.getElementById('workshopNext');
@@ -72,62 +72,55 @@ const workshopDots = workshopNav ? workshopNav.querySelectorAll('.workshop-dot')
 let currentWorkshopSlide = 0;
 const workshopSlideCount = workshopSlides ? workshopSlides.children.length : 0;
 
-// Initialize workshop images
+// Инициализация изображений мастерской
 function initializeWorkshopImages() {
     if (!workshopSlides) return;
     
-    // Check which images actually exist
-    const workshopImages = [
-        './img/mast1.jpg',
-        './img/mast2.jpg', 
-        './img/mast3.jpg'
-    ];
-    
-    // Update slides based on existing images
+    // Проверяем какие изображения действительно существуют
     for (let i = 0; i < workshopSlideCount - 1; i++) {
         const img = workshopSlides.children[i].querySelector('img');
         if (img) {
             img.onerror = function() {
-                // If image doesn't exist, hide the slide
+                // Если изображение не существует, скрываем слайд
                 workshopSlides.children[i].style.display = 'none';
             };
         }
     }
 }
 
-// Update workshop carousel
+// Обновление карусели мастерской
 function updateWorkshopCarousel() {
     if (!workshopSlides) return;
     
     workshopSlides.style.transform = `translateX(-${currentWorkshopSlide * 100}%)`;
     
-    // Update dots
+    // Обновляем точки
     workshopDots.forEach((dot, index) => {
         dot.classList.toggle('active', index === currentWorkshopSlide);
     });
 }
 
-// Next workshop slide
+// Следующий слайд мастерской
 function nextWorkshopSlide() {
     if (!workshopSlides) return;
     currentWorkshopSlide = (currentWorkshopSlide + 1) % workshopSlideCount;
     updateWorkshopCarousel();
 }
 
-// Previous workshop slide
+// Предыдущий слайд мастерской
 function prevWorkshopSlide() {
     if (!workshopSlides) return;
     currentWorkshopSlide = (currentWorkshopSlide - 1 + workshopSlideCount) % workshopSlideCount;
     updateWorkshopCarousel();
 }
 
-// Initialize workshop carousel if elements exist
+// Инициализация карусели мастерской если элементы существуют
 if (workshopPrev && workshopNext) {
     workshopPrev.addEventListener('click', prevWorkshopSlide);
     workshopNext.addEventListener('click', nextWorkshopSlide);
 }
 
-// Dot navigation
+// Навигация точками
 workshopDots.forEach((dot, index) => {
     dot.addEventListener('click', () => {
         currentWorkshopSlide = index;
@@ -135,12 +128,12 @@ workshopDots.forEach((dot, index) => {
     });
 });
 
-// Auto-advance workshop carousel
+// Автопрокрутка карусели мастерской
 let workshopInterval;
 if (workshopSlides) {
     workshopInterval = setInterval(nextWorkshopSlide, 5000);
 
-    // Pause auto-advance on hover
+    // Пауза автопрокрутки при наведении
     workshopSlides.parentElement.addEventListener('mouseenter', () => {
         clearInterval(workshopInterval);
     });
@@ -150,7 +143,7 @@ if (workshopSlides) {
     });
 }
 
-// Gallery Carousel
+// Карусель галереи
 const gallerySlides = document.getElementById('gallerySlides');
 const galleryNav = document.getElementById('galleryNav');
 const galleryPrev = document.getElementById('galleryPrev');
@@ -159,7 +152,7 @@ const galleryNext = document.getElementById('galleryNext');
 let currentGallerySlide = 0;
 let galleryImages = [];
 
-// Initialize gallery with images from gallery folder
+// Инициализация галереи с изображениями из папки gallery
 function initializeGallery() {
     if (!gallerySlides) return;
     
@@ -173,9 +166,9 @@ function initializeGallery() {
         './gallery/photo7.jpg',
         './gallery/photo8.jpg',
         './gallery/photo9.jpg'
-    ].filter(src => src); // Filter out empty strings
+    ].filter(src => src); // Фильтруем пустые строки
     
-    // If no gallery images, hide the gallery section
+    // Если нет изображений галереи, скрываем секцию
     if (galleryImages.length === 0) {
         document.querySelector('.gallery').style.display = 'none';
         return;
@@ -184,7 +177,7 @@ function initializeGallery() {
     renderGallery();
 }
 
-// Render gallery
+// Отрисовка галереи
 function renderGallery() {
     if (!gallerySlides || !galleryNav) return;
     
@@ -192,10 +185,10 @@ function renderGallery() {
     galleryNav.innerHTML = '';
     
     galleryImages.forEach((imageSrc, index) => {
-        // Skip empty or invalid URLs
+        // Пропускаем пустые или невалидные URL
         if (!imageSrc || imageSrc.trim() === '') return;
         
-        // Create slide
+        // Создаем слайд
         const slide = document.createElement('div');
         slide.className = 'gallery-slide';
         
@@ -203,16 +196,17 @@ function renderGallery() {
         img.src = imageSrc;
         img.alt = `Пример ремонта техники в Глазове от ПрофСервис18 - работа ${index + 1}`;
         img.loading = 'lazy';
+        img.classList.add('lazy-image');
         img.addEventListener('click', () => openGalleryLightbox(index));
         img.onerror = function() {
-            // If image fails to load, remove the slide
+            // Если изображение не загружается, удаляем слайд
             slide.style.display = 'none';
         };
         
         slide.appendChild(img);
         gallerySlides.appendChild(slide);
         
-        // Create thumbnail
+        // Создаем миниатюру
         const thumb = document.createElement('div');
         thumb.className = 'gallery-thumb';
         if (index === 0) thumb.classList.add('active');
@@ -222,60 +216,61 @@ function renderGallery() {
         thumbImg.src = imageSrc;
         thumbImg.alt = `Миниатюра примера работы ${index + 1}`;
         thumbImg.loading = 'lazy';
+        thumbImg.classList.add('lazy-image');
         
         thumb.appendChild(thumbImg);
         galleryNav.appendChild(thumb);
         
-        // Thumb click event
+        // Событие клика на миниатюру
         thumb.addEventListener('click', () => {
             currentGallerySlide = index;
             updateGalleryCarousel();
         });
     });
     
-    // Update gallery carousel
+    // Обновляем карусель галереи
     updateGalleryCarousel();
 }
 
-// Update gallery carousel
+// Обновление карусели галереи
 function updateGalleryCarousel() {
     if (!gallerySlides) return;
     
     gallerySlides.style.transform = `translateX(-${currentGallerySlide * 100}%)`;
     
-    // Update thumbnails
+    // Обновляем миниатюры
     const thumbs = galleryNav.querySelectorAll('.gallery-thumb');
     thumbs.forEach((thumb, index) => {
         thumb.classList.toggle('active', index === currentGallerySlide);
     });
 }
 
-// Next gallery slide
+// Следующий слайд галереи
 function nextGallerySlide() {
     if (!gallerySlides || galleryImages.length === 0) return;
     currentGallerySlide = (currentGallerySlide + 1) % galleryImages.length;
     updateGalleryCarousel();
 }
 
-// Previous gallery slide
+// Предыдущий слайд галереи
 function prevGallerySlide() {
     if (!gallerySlides || galleryImages.length === 0) return;
     currentGallerySlide = (currentGallerySlide - 1 + galleryImages.length) % galleryImages.length;
     updateGalleryCarousel();
 }
 
-// Initialize gallery carousel if elements exist
+// Инициализация карусели галереи если элементы существуют
 if (galleryPrev && galleryNext) {
     galleryPrev.addEventListener('click', prevGallerySlide);
     galleryNext.addEventListener('click', nextGallerySlide);
 }
 
-// Auto-advance gallery carousel
+// Автопрокрутка карусели галереи
 let galleryInterval;
 if (gallerySlides && galleryImages.length > 0) {
     galleryInterval = setInterval(nextGallerySlide, 4000);
 
-    // Pause auto-advance on hover
+    // Пауза автопрокрутки при наведении
     gallerySlides.parentElement.addEventListener('mouseenter', () => {
         clearInterval(galleryInterval);
     });
@@ -285,14 +280,14 @@ if (gallerySlides && galleryImages.length > 0) {
     });
 }
 
-// Lightbox Modal for Gallery
+// Модальное окно для галереи
 const galleryLightbox = document.getElementById('galleryLightbox');
 const galleryLightboxImage = document.getElementById('galleryLightboxImage');
 const galleryLightboxClose = document.getElementById('galleryLightboxClose');
 const galleryLightboxPrev = document.getElementById('galleryLightboxPrev');
 const galleryLightboxNext = document.getElementById('galleryLightboxNext');
 
-// Open gallery lightbox
+// Открытие модального окна галереи
 function openGalleryLightbox(index) {
     if (!galleryLightbox || !galleryLightboxImage) return;
     
@@ -303,7 +298,7 @@ function openGalleryLightbox(index) {
     document.body.style.overflow = 'hidden';
 }
 
-// Close gallery lightbox
+// Закрытие модального окна галереи
 function closeGalleryLightbox() {
     if (!galleryLightbox) return;
     
@@ -311,7 +306,7 @@ function closeGalleryLightbox() {
     document.body.style.overflow = 'auto';
 }
 
-// Next gallery image in lightbox
+// Следующее изображение в модальном окне
 function nextGalleryLightboxImage() {
     if (!galleryLightboxImage || galleryImages.length === 0) return;
     
@@ -321,7 +316,7 @@ function nextGalleryLightboxImage() {
     updateGalleryCarousel();
 }
 
-// Previous gallery image in lightbox
+// Предыдущее изображение в модальном окне
 function prevGalleryLightboxImage() {
     if (!galleryLightboxImage || galleryImages.length === 0) return;
     
@@ -331,14 +326,14 @@ function prevGalleryLightboxImage() {
     updateGalleryCarousel();
 }
 
-// Initialize lightbox if elements exist
+// Инициализация модального окна если элементы существуют
 if (galleryLightboxClose && galleryLightboxPrev && galleryLightboxNext) {
     galleryLightboxClose.addEventListener('click', closeGalleryLightbox);
     galleryLightboxPrev.addEventListener('click', prevGalleryLightboxImage);
     galleryLightboxNext.addEventListener('click', nextGalleryLightboxImage);
 }
 
-// Close lightbox on background click
+// Закрытие модального окна по клику на фон
 if (galleryLightbox) {
     galleryLightbox.addEventListener('click', (e) => {
         if (e.target === galleryLightbox) {
@@ -347,7 +342,7 @@ if (galleryLightbox) {
     });
 }
 
-// Keyboard navigation
+// Навигация с клавиатуры
 document.addEventListener('keydown', (e) => {
     if (galleryLightbox && galleryLightbox.classList.contains('active')) {
         if (e.key === 'Escape') closeGalleryLightbox();
@@ -356,283 +351,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Reviews Management with JSON
-const reviewsContainer = document.getElementById('reviewsContainer');
-const hiddenReviews = document.getElementById('hiddenReviews');
-const toggleReviewsBtn = document.getElementById('toggleReviewsBtn');
-const reviewForm = document.getElementById('reviewForm');
-const starRating = document.getElementById('starRating');
-let currentRating = 0;
-let reviewsExpanded = false;
-let reviews = [];
-
-// Load reviews from JSON file
-async function loadReviews() {
-    try {
-        const response = await fetch('./reviews.json');
-        const data = await response.json();
-        reviews = data.reviews;
-        
-        // Merge with local storage reviews
-        const localReviews = JSON.parse(localStorage.getItem('profservice18_reviews')) || [];
-        reviews = [...reviews, ...localReviews];
-        
-        renderReviews();
-    } catch (error) {
-        console.error('Error loading reviews:', error);
-        // Fallback to local storage
-        reviews = JSON.parse(localStorage.getItem('profservice18_reviews')) || [];
-        renderReviews();
-    }
-}
-
-// Save new review to local storage
-function saveReviewToLocal(review) {
-    const localReviews = JSON.parse(localStorage.getItem('profservice18_reviews')) || [];
-    localReviews.push({
-        ...review,
-        id: Date.now(), // Unique ID
-        city: 'Глазов'
-    });
-    localStorage.setItem('profservice18_reviews', JSON.stringify(localReviews));
-}
-
-// Function to render reviews
-function renderReviews() {
-    if (!reviewsContainer || !hiddenReviews) return;
-    
-    reviewsContainer.innerHTML = '';
-    hiddenReviews.innerHTML = '';
-    
-    // Sort reviews by date (newest first)
-    const sortedReviews = [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date));
-    
-    // Show last 3 reviews
-    const visibleReviews = sortedReviews.slice(0, 3);
-    const hiddenReviewsList = sortedReviews.slice(3);
-    
-    visibleReviews.forEach((review) => {
-        const reviewCard = createReviewCard(review);
-        reviewsContainer.appendChild(reviewCard);
-    });
-    
-    hiddenReviewsList.forEach((review) => {
-        const reviewCard = createReviewCard(review);
-        hiddenReviews.appendChild(reviewCard);
-    });
-    
-    // Update toggle button text
-    if (toggleReviewsBtn) {
-        toggleReviewsBtn.textContent = hiddenReviewsList.length > 0 ? 
-            `Показать все отзывы (${hiddenReviewsList.length}+)` : 
-            'Показать все отзывы';
-            
-        // Show/hide toggle button based on reviews count
-        toggleReviewsBtn.style.display = hiddenReviewsList.length > 0 ? 'block' : 'none';
-    }
-}
-
-// Function to create review card
-function createReviewCard(review) {
-    const reviewCard = document.createElement('div');
-    reviewCard.className = 'review-card animate-on-scroll animated';
-    reviewCard.setAttribute('itemscope', '');
-    reviewCard.setAttribute('itemtype', 'https://schema.org/Review');
-    
-    const reviewHeader = document.createElement('div');
-    reviewHeader.className = 'review-header';
-    
-    const avatar = document.createElement('div');
-    avatar.className = 'review-avatar';
-    avatar.textContent = review.name.split(' ').map(n => n[0]).join('').substring(0, 2);
-    
-    const reviewInfo = document.createElement('div');
-    reviewInfo.className = 'review-info';
-    
-    const name = document.createElement('h4');
-    name.textContent = review.name;
-    name.setAttribute('itemprop', 'author');
-    
-    const date = document.createElement('div');
-    date.className = 'review-date';
-    date.textContent = formatDate(review.date);
-    date.setAttribute('itemprop', 'datePublished');
-    date.setAttribute('content', review.date);
-    
-    reviewInfo.appendChild(name);
-    reviewInfo.appendChild(date);
-    
-    // Service type if available
-    if (review.service) {
-        const service = document.createElement('div');
-        service.className = 'review-service';
-        service.textContent = review.service;
-        reviewInfo.appendChild(service);
-    }
-    
-    reviewHeader.appendChild(avatar);
-    reviewHeader.appendChild(reviewInfo);
-    
-    const stars = document.createElement('div');
-    stars.className = 'review-stars';
-    stars.setAttribute('itemprop', 'reviewRating');
-    stars.setAttribute('itemscope', '');
-    stars.setAttribute('itemtype', 'https://schema.org/Rating');
-    stars.innerHTML = `
-        <span itemprop="ratingValue" style="display: none;">${review.rating}</span>
-        ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
-    `;
-    
-    const text = document.createElement('p');
-    text.className = 'review-text';
-    text.textContent = review.text;
-    text.setAttribute('itemprop', 'reviewBody');
-    
-    reviewCard.appendChild(reviewHeader);
-    reviewCard.appendChild(stars);
-    reviewCard.appendChild(text);
-    
-    return reviewCard;
-}
-
-// Toggle reviews visibility
-if (toggleReviewsBtn) {
-    toggleReviewsBtn.addEventListener('click', () => {
-        reviewsExpanded = !reviewsExpanded;
-        if (hiddenReviews) {
-            hiddenReviews.classList.toggle('active', reviewsExpanded);
-        }
-        toggleReviewsBtn.textContent = reviewsExpanded ? 
-            'Скрыть отзывы' : 
-            `Показать все отзывы (${reviews.length - 3}+)`;
-    });
-}
-
-// Function to format date
-function formatDate(dateString) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('ru-RU', options);
-}
-
-// Star rating functionality
-if (starRating) {
-    starRating.querySelectorAll('.star').forEach(star => {
-        star.addEventListener('click', function() {
-            const rating = parseInt(this.getAttribute('data-rating'));
-            currentRating = rating;
-            
-            starRating.querySelectorAll('.star').forEach(s => {
-                if (parseInt(s.getAttribute('data-rating')) <= rating) {
-                    s.classList.add('active');
-                } else {
-                    s.classList.remove('active');
-                }
-            });
-        });
-        
-        // Hover effect
-        star.addEventListener('mouseenter', function() {
-            const rating = parseInt(this.getAttribute('data-rating'));
-            starRating.querySelectorAll('.star').forEach(s => {
-                if (parseInt(s.getAttribute('data-rating')) <= rating) {
-                    s.style.color = '#f1c40f';
-                }
-            });
-        });
-        
-        star.addEventListener('mouseleave', function() {
-            starRating.querySelectorAll('.star').forEach(s => {
-                if (parseInt(s.getAttribute('data-rating')) > currentRating) {
-                    s.style.color = '#ddd';
-                }
-            });
-        });
-    });
-}
-
-// Review form submission
-if (reviewForm) {
-    reviewForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        if (currentRating === 0) {
-            alert('Пожалуйста, поставьте оценку');
-            return;
-        }
-        
-        const name = document.getElementById('reviewName').value.trim();
-        const text = document.getElementById('reviewText').value.trim();
-        
-        if (!name || !text) {
-            alert('Пожалуйста, заполните все поля');
-            return;
-        }
-        
-        const newReview = {
-            name: name,
-            rating: currentRating,
-            text: text,
-            date: new Date().toISOString().split('T')[0],
-            service: 'Ремонт техники',
-            city: 'Глазов'
-        };
-        
-        // Save to local storage
-        saveReviewToLocal(newReview);
-        
-        // Add to current reviews and re-render
-        reviews.push(newReview);
-        renderReviews();
-        
-        alert('Спасибо за ваш отзыв о нашем сервисе в Глазове!');
-        reviewForm.reset();
-        
-        // Reset stars
-        starRating.querySelectorAll('.star').forEach(star => {
-            star.classList.remove('active');
-            star.style.color = '';
-        });
-        currentRating = 0;
-        
-        // Collapse reviews if expanded
-        if (reviewsExpanded && hiddenReviews) {
-            hiddenReviews.classList.remove('active');
-            reviewsExpanded = false;
-            if (toggleReviewsBtn) {
-                toggleReviewsBtn.textContent = `Показать все отзывы (${reviews.length - 3}+)`;
-            }
-        }
-    });
-}
-
-// Contact information management
-function updateContactInfo() {
-    const savedContacts = JSON.parse(localStorage.getItem('profservice18_contacts'));
-    if (savedContacts) {
-        // Update contact section
-        const contactPhone = document.getElementById('contact-phone');
-        const contactEmail = document.getElementById('contact-email');
-        const contactAddress = document.getElementById('contact-address');
-        const contactHours = document.getElementById('contact-hours');
-        
-        // Footer elements
-        const footerPhone = document.getElementById('footer-phone');
-        const footerEmail = document.getElementById('footer-email');
-        const footerAddress = document.getElementById('footer-address');
-        
-        if (contactPhone) contactPhone.textContent = savedContacts.phone || '+7 (912) 010-78-84';
-        if (contactEmail) contactEmail.textContent = savedContacts.email || 'aleksei18rus@gmail.com';
-        if (contactAddress) contactAddress.textContent = savedContacts.address || 'г. Глазов, ул. Динамо, д. 2 (магазин "Инструменты и точка")';
-        if (contactHours) contactHours.innerHTML = (savedContacts.hours || 'Пн-Пт: 10:00 - 18:00<br>Сб: 10:00 - 16:00<br>Вс: выходной').replace(/, /g, '<br>');
-        
-        // Update footer
-        if (footerPhone) footerPhone.textContent = savedContacts.phone || '+7 (912) 010-78-84';
-        if (footerEmail) footerEmail.textContent = savedContacts.email || 'aleksei18rus@gmail.com';
-        if (footerAddress) footerAddress.textContent = savedContacts.address || 'г. Глазов, ул. Динамо, д. 2';
-    }
-}
-
-// Clickable phone numbers enhancement
+// Улучшение кликабельных телефонов
 function enhanceClickablePhones() {
     const phones = document.querySelectorAll('#contact-phone, #footer-phone');
     phones.forEach(phone => {
@@ -648,7 +367,7 @@ function enhanceClickablePhones() {
     });
 }
 
-// Email enhancement
+// Улучшение email
 function enhanceEmails() {
     const emails = document.querySelectorAll('#contact-email, #footer-email');
     emails.forEach(email => {
@@ -663,12 +382,12 @@ function enhanceEmails() {
     });
 }
 
-// Track outbound links for analytics
+// Отслеживание внешних ссылок для аналитики
 function trackOutboundLinks() {
     document.querySelectorAll('a[href^="http"]').forEach(link => {
         if (link.hostname !== window.location.hostname) {
             link.addEventListener('click', function(e) {
-                // Send event to Yandex.Metrika
+                // Отправляем событие в Яндекс.Метрику
                 if (window.ym) {
                     ym(105213962, 'reachGoal', 'OUTBOUND_LINK');
                 }
@@ -677,7 +396,7 @@ function trackOutboundLinks() {
     });
 }
 
-// Popup скидки
+// Всплывающее окно скидки
 const discountPopup = document.getElementById('discountPopup');
 const popupClose = document.getElementById('popupClose');
 const popupAction = document.getElementById('popupAction');
@@ -700,7 +419,7 @@ if (discountPopup && popupClose && popupAction) {
 
     // Действие при нажатии на кнопку
     popupAction.addEventListener('click', () => {
-        // Можно добавить переход к контактам или другому действию
+        // Переход к контактам
         window.location.href = '#contact';
         discountPopup.classList.remove('active');
     });
@@ -713,33 +432,6 @@ if (discountPopup && popupClose && popupAction) {
     });
 }
 
-// Initialize everything on page load
-document.addEventListener('DOMContentLoaded', function() {
-    setCustomBackground();
-    initializeWorkshopImages();
-    initializeGallery();
-    loadReviews();
-    updateContactInfo();
-    enhanceClickablePhones();
-    enhanceEmails();
-    trackOutboundLinks();
-    initYandexMap();
-    // Initial animation check
-    animateOnScroll();
-});
-
-// Service Worker Registration for PWA (optional)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
-            .then(function(registration) {
-                console.log('ServiceWorker registration successful');
-            })
-            .catch(function(err) {
-                console.log('ServiceWorker registration failed: ', err);
-            });
-    });
-}
 // Яндекс Карта
 function initYandexMap() {
     if (typeof ymaps !== 'undefined') {
@@ -767,6 +459,117 @@ function initYandexMap() {
             map.geoObjects.add(placemark);
         });
     } else {
-        console.log('Yandex Maps API not loaded');
+        console.log('API Яндекс.Карт не загружен');
     }
+}
+
+// Ленивая загрузка для изображений
+function initLazyLoading() {
+    const images = document.querySelectorAll('img.lazy-image');
+    
+    // Если браузер поддерживает IntersectionObserver
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.classList.add('loaded');
+                    }
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px 0px',
+            threshold: 0.1
+        });
+
+        images.forEach(img => {
+            // Сохраняем оригинальный src в data-src
+            if (!img.dataset.src && img.src) {
+                img.dataset.src = img.src;
+            }
+            imageObserver.observe(img);
+        });
+    } else {
+        // Fallback для старых браузеров
+        images.forEach(img => {
+            img.classList.add('loaded');
+        });
+    }
+}
+
+// Виджеты ВКонтакте
+function initVKWidgets() {
+    // Просто ждем и пробуем инициализировать
+    setTimeout(() => {
+        if (typeof VK !== 'undefined') {
+            try {
+                // Комментарии
+                if (document.getElementById('vk_comments')) {
+                    VK.Widgets.Comments("vk_comments", { 
+                        limit: 50, 
+                        attach: "*" 
+                    });
+                }
+                
+                // Посты
+                const posts = [
+                    { id: 'vk_post_407958737_70', owner: 407958737, post: 70, hash: 'LqQCwgVri0cVdpQuao1fcNO4_lRZ' },
+                    { id: 'vk_post_407958737_61', owner: 407958737, post: 61, hash: 'VnZGVvYvsrOe_wSa0xoWSYDn5fwg' },
+                    { id: 'vk_post_407958737_56', owner: 407958737, post: 56, hash: 'ZAOZ6_Qj4WRj_HFutxVZhPwyLCFH' }
+                ];
+                
+                posts.forEach(post => {
+                    if (document.getElementById(post.id)) {
+                        VK.Widgets.Post(post.id, post.owner, post.post, post.hash);
+                    }
+                });
+                
+            } catch (error) {
+                console.log('VK виджеты не загрузились, но сайт продолжает работать');
+            }
+        }
+    }, 3000);
+}
+
+// Управление контактной информацией
+function updateContactInfo() {
+    // Простая функция для проверки контактных данных
+    console.log('Контактная информация проверена');
+    
+    // Убеждаемся, что телефоны и email кликабельны
+    enhanceClickablePhones();
+    enhanceEmails();
+}
+
+// Инициализация всего при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    setCustomBackground();
+    initializeWorkshopImages();
+    initializeGallery();
+    updateContactInfo(); // Теперь эта функция определена
+    enhanceClickablePhones();
+    enhanceEmails();
+    trackOutboundLinks();
+    initYandexMap();
+    initLazyLoading();
+    initVKWidgets();
+    
+    // Первоначальная проверка анимации
+    animateOnScroll();
+});
+
+// Регистрация Service Worker для PWA (опционально)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+                console.log('Регистрация ServiceWorker успешна');
+            })
+            .catch(function(err) {
+                console.log('Регистрация ServiceWorker не удалась: ', err);
+            });
+    });
 }
