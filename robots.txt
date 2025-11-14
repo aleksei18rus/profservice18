@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://aleksei18rus.github.io/profservice18/sitemap.xml
