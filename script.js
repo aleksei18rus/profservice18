@@ -3,6 +3,13 @@ document.querySelector('.mobile-menu').addEventListener('click', function() {
     document.querySelector('.nav-links').classList.toggle('active');
 });
 
+// Close mobile menu when clicking on links
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('active');
+    });
+});
+
 // Smooth Scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -60,34 +67,38 @@ const workshopSlides = document.getElementById('workshopSlides');
 const workshopPrev = document.getElementById('workshopPrev');
 const workshopNext = document.getElementById('workshopNext');
 const workshopNav = document.getElementById('workshopNav');
-const workshopDots = workshopNav.querySelectorAll('.workshop-dot');
+const workshopDots = workshopNav ? workshopNav.querySelectorAll('.workshop-dot') : [];
 
 let currentWorkshopSlide = 0;
-const workshopSlideCount = workshopSlides.children.length;
+const workshopSlideCount = workshopSlides ? workshopSlides.children.length : 0;
 
 // Initialize workshop images
 function initializeWorkshopImages() {
+    if (!workshopSlides) return;
+    
     // Check which images actually exist
     const workshopImages = [
         './img/mast1.jpg',
         './img/mast2.jpg', 
-        './img/mast3.jpg',
-        './img/mast4.jpg'
-
+        './img/mast3.jpg'
     ];
     
     // Update slides based on existing images
     for (let i = 0; i < workshopSlideCount - 1; i++) {
         const img = workshopSlides.children[i].querySelector('img');
-        if (img && !workshopImages[i]) {
-            // If image doesn't exist, hide the slide
-            workshopSlides.children[i].style.display = 'none';
+        if (img) {
+            img.onerror = function() {
+                // If image doesn't exist, hide the slide
+                workshopSlides.children[i].style.display = 'none';
+            };
         }
     }
 }
 
 // Update workshop carousel
 function updateWorkshopCarousel() {
+    if (!workshopSlides) return;
+    
     workshopSlides.style.transform = `translateX(-${currentWorkshopSlide * 100}%)`;
     
     // Update dots
@@ -98,19 +109,23 @@ function updateWorkshopCarousel() {
 
 // Next workshop slide
 function nextWorkshopSlide() {
+    if (!workshopSlides) return;
     currentWorkshopSlide = (currentWorkshopSlide + 1) % workshopSlideCount;
     updateWorkshopCarousel();
 }
 
 // Previous workshop slide
 function prevWorkshopSlide() {
+    if (!workshopSlides) return;
     currentWorkshopSlide = (currentWorkshopSlide - 1 + workshopSlideCount) % workshopSlideCount;
     updateWorkshopCarousel();
 }
 
-// Event listeners for workshop carousel
-workshopPrev.addEventListener('click', prevWorkshopSlide);
-workshopNext.addEventListener('click', nextWorkshopSlide);
+// Initialize workshop carousel if elements exist
+if (workshopPrev && workshopNext) {
+    workshopPrev.addEventListener('click', prevWorkshopSlide);
+    workshopNext.addEventListener('click', nextWorkshopSlide);
+}
 
 // Dot navigation
 workshopDots.forEach((dot, index) => {
@@ -121,16 +136,19 @@ workshopDots.forEach((dot, index) => {
 });
 
 // Auto-advance workshop carousel
-let workshopInterval = setInterval(nextWorkshopSlide, 5000);
-
-// Pause auto-advance on hover
-workshopSlides.parentElement.addEventListener('mouseenter', () => {
-    clearInterval(workshopInterval);
-});
-
-workshopSlides.parentElement.addEventListener('mouseleave', () => {
+let workshopInterval;
+if (workshopSlides) {
     workshopInterval = setInterval(nextWorkshopSlide, 5000);
-});
+
+    // Pause auto-advance on hover
+    workshopSlides.parentElement.addEventListener('mouseenter', () => {
+        clearInterval(workshopInterval);
+    });
+
+    workshopSlides.parentElement.addEventListener('mouseleave', () => {
+        workshopInterval = setInterval(nextWorkshopSlide, 5000);
+    });
+}
 
 // Gallery Carousel
 const gallerySlides = document.getElementById('gallerySlides');
@@ -143,6 +161,8 @@ let galleryImages = [];
 
 // Initialize gallery with images from gallery folder
 function initializeGallery() {
+    if (!gallerySlides) return;
+    
     galleryImages = [
         './gallery/photo1.jpg',
         './gallery/photo2.jpg',
@@ -152,13 +172,21 @@ function initializeGallery() {
         './gallery/photo6.jpg',
         './gallery/photo7.jpg',
         './gallery/photo8.jpg'
-    ];
+    ].filter(src => src); // Filter out empty strings
+    
+    // If no gallery images, hide the gallery section
+    if (galleryImages.length === 0) {
+        document.querySelector('.gallery').style.display = 'none';
+        return;
+    }
     
     renderGallery();
 }
 
 // Render gallery
 function renderGallery() {
+    if (!gallerySlides || !galleryNav) return;
+    
     gallerySlides.innerHTML = '';
     galleryNav.innerHTML = '';
     
@@ -172,11 +200,11 @@ function renderGallery() {
         
         const img = document.createElement('img');
         img.src = imageSrc;
-        img.alt = `Пример работы ${index + 1}`;
+        img.alt = `Пример ремонта техники в Глазове от ПрофСервис18 - работа ${index + 1}`;
         img.loading = 'lazy';
         img.addEventListener('click', () => openGalleryLightbox(index));
         img.onerror = function() {
-            // If image fails to load, remove the item
+            // If image fails to load, remove the slide
             slide.style.display = 'none';
         };
         
@@ -191,7 +219,8 @@ function renderGallery() {
         
         const thumbImg = document.createElement('img');
         thumbImg.src = imageSrc;
-        thumbImg.alt = `Пример работы ${index + 1}`;
+        thumbImg.alt = `Миниатюра примера работы ${index + 1}`;
+        thumbImg.loading = 'lazy';
         
         thumb.appendChild(thumbImg);
         galleryNav.appendChild(thumb);
@@ -209,6 +238,8 @@ function renderGallery() {
 
 // Update gallery carousel
 function updateGalleryCarousel() {
+    if (!gallerySlides) return;
+    
     gallerySlides.style.transform = `translateX(-${currentGallerySlide * 100}%)`;
     
     // Update thumbnails
@@ -220,31 +251,38 @@ function updateGalleryCarousel() {
 
 // Next gallery slide
 function nextGallerySlide() {
+    if (!gallerySlides || galleryImages.length === 0) return;
     currentGallerySlide = (currentGallerySlide + 1) % galleryImages.length;
     updateGalleryCarousel();
 }
 
 // Previous gallery slide
 function prevGallerySlide() {
+    if (!gallerySlides || galleryImages.length === 0) return;
     currentGallerySlide = (currentGallerySlide - 1 + galleryImages.length) % galleryImages.length;
     updateGalleryCarousel();
 }
 
-// Event listeners for gallery carousel
-galleryPrev.addEventListener('click', prevGallerySlide);
-galleryNext.addEventListener('click', nextGallerySlide);
+// Initialize gallery carousel if elements exist
+if (galleryPrev && galleryNext) {
+    galleryPrev.addEventListener('click', prevGallerySlide);
+    galleryNext.addEventListener('click', nextGallerySlide);
+}
 
 // Auto-advance gallery carousel
-let galleryInterval = setInterval(nextGallerySlide, 4000);
-
-// Pause auto-advance on hover
-gallerySlides.parentElement.addEventListener('mouseenter', () => {
-    clearInterval(galleryInterval);
-});
-
-gallerySlides.parentElement.addEventListener('mouseleave', () => {
+let galleryInterval;
+if (gallerySlides && galleryImages.length > 0) {
     galleryInterval = setInterval(nextGallerySlide, 4000);
-});
+
+    // Pause auto-advance on hover
+    gallerySlides.parentElement.addEventListener('mouseenter', () => {
+        clearInterval(galleryInterval);
+    });
+
+    gallerySlides.parentElement.addEventListener('mouseleave', () => {
+        galleryInterval = setInterval(nextGallerySlide, 4000);
+    });
+}
 
 // Lightbox Modal for Gallery
 const galleryLightbox = document.getElementById('galleryLightbox');
@@ -255,54 +293,69 @@ const galleryLightboxNext = document.getElementById('galleryLightboxNext');
 
 // Open gallery lightbox
 function openGalleryLightbox(index) {
+    if (!galleryLightbox || !galleryLightboxImage) return;
+    
     currentGallerySlide = index;
     galleryLightboxImage.src = galleryImages[currentGallerySlide];
+    galleryLightboxImage.alt = `Пример ремонта техники в Глазове - работа ${index + 1}`;
     galleryLightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
 // Close gallery lightbox
 function closeGalleryLightbox() {
+    if (!galleryLightbox) return;
+    
     galleryLightbox.classList.remove('active');
     document.body.style.overflow = 'auto';
 }
 
 // Next gallery image in lightbox
 function nextGalleryLightboxImage() {
+    if (!galleryLightboxImage || galleryImages.length === 0) return;
+    
     currentGallerySlide = (currentGallerySlide + 1) % galleryImages.length;
     galleryLightboxImage.src = galleryImages[currentGallerySlide];
+    galleryLightboxImage.alt = `Пример ремонта техники в Глазове - работа ${currentGallerySlide + 1}`;
     updateGalleryCarousel();
 }
 
 // Previous gallery image in lightbox
 function prevGalleryLightboxImage() {
+    if (!galleryLightboxImage || galleryImages.length === 0) return;
+    
     currentGallerySlide = (currentGallerySlide - 1 + galleryImages.length) % galleryImages.length;
     galleryLightboxImage.src = galleryImages[currentGallerySlide];
+    galleryLightboxImage.alt = `Пример ремонта техники в Глазове - работа ${currentGallerySlide + 1}`;
     updateGalleryCarousel();
 }
 
-// Event listeners for gallery lightbox
-galleryLightboxClose.addEventListener('click', closeGalleryLightbox);
-galleryLightboxPrev.addEventListener('click', prevGalleryLightboxImage);
-galleryLightboxNext.addEventListener('click', nextGalleryLightboxImage);
+// Initialize lightbox if elements exist
+if (galleryLightboxClose && galleryLightboxPrev && galleryLightboxNext) {
+    galleryLightboxClose.addEventListener('click', closeGalleryLightbox);
+    galleryLightboxPrev.addEventListener('click', prevGalleryLightboxImage);
+    galleryLightboxNext.addEventListener('click', nextGalleryLightboxImage);
+}
 
 // Close lightbox on background click
-galleryLightbox.addEventListener('click', (e) => {
-    if (e.target === galleryLightbox) {
-        closeGalleryLightbox();
-    }
-});
+if (galleryLightbox) {
+    galleryLightbox.addEventListener('click', (e) => {
+        if (e.target === galleryLightbox) {
+            closeGalleryLightbox();
+        }
+    });
+}
 
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
-    if (galleryLightbox.classList.contains('active')) {
+    if (galleryLightbox && galleryLightbox.classList.contains('active')) {
         if (e.key === 'Escape') closeGalleryLightbox();
         if (e.key === 'ArrowLeft') prevGalleryLightboxImage();
         if (e.key === 'ArrowRight') nextGalleryLightboxImage();
     }
 });
 
-// Reviews Management with Collapsible
+// Reviews Management with JSON
 const reviewsContainer = document.getElementById('reviewsContainer');
 const hiddenReviews = document.getElementById('hiddenReviews');
 const toggleReviewsBtn = document.getElementById('toggleReviewsBtn');
@@ -310,61 +363,43 @@ const reviewForm = document.getElementById('reviewForm');
 const starRating = document.getElementById('starRating');
 let currentRating = 0;
 let reviewsExpanded = false;
+let reviews = [];
 
-// Initialize reviews
-let reviews = JSON.parse(localStorage.getItem('reviews')) || [
-    {
-        name: 'Иван К.',
-        rating: 5,
-        text: 'Отличный сервис! Починили ноутбук за один день, хотя в других местах говорили, что ремонт займет неделю. Цены адекватные, мастер все объяснил и показал. Рекомендую!',
-        date: '2024-10-15'
-    },
-    {
-        name: 'Мария С.',
-        rating: 5,
-        text: 'Разбила экран телефона, думала, что придется покупать новый. В ПрофСервис18 заменили дисплей за разумные деньги, телефон как новый. Спасибо за качественную работу!',
-        date: '2024-09-28'
-    },
-    {
-        name: 'Алексей П.',
-        rating: 4,
-        text: 'Починили игровую консоль, которая не включалась. Сделали быстро, дали гарантию. Единственное - пришлось немного подождать запчасть, но это мелочи. В целом все отлично!',
-        date: '2024-08-12'
-    },
-    {
-        name: 'Ольга В.',
-        rating: 5,
-        text: 'Заказывала 3D-печать детали для старого пылесоса. Напечатали быстро, качественно, деталь идеально подошла. Очень довольна сервисом!',
-        date: '2024-07-05'
-    },
-    {
-        name: 'Дмитрий Н.',
-        rating: 5,
-        text: 'Ремонтировал телевизор. Мастер приехал на дом, быстро нашел проблему и починил. Очень вежливый и профессиональный. Буду рекомендовать знакомым!',
-        date: '2024-06-18'
-    },
-    {
-        name: 'Сергей',
-        rating: 5,
-        text: 'Пользуюсь услугами с 2018 года. Всегда качественный ремонт по адекватным ценам. Особенно хочу отметить ремонт PlayStation 4 - сделали быстро и недорого.',
-        date: '2023-11-05'
-    },
-    {
-        name: 'Анна Петрова',
-        rating: 5,
-        text: 'Обратилась в 2019 году с разбитым экраном телефона. С тех пор все ремонты только здесь. Ни разу не подводили! Спасибо за честность и профессионализм.',
-        date: '2023-08-20'
-    },
-    {
-        name: 'Михаил',
-        rating: 4,
-        text: 'Делали 3D-печать детали для автомобиля в 2020 году. Качество печати отличное, деталь служит до сих пор. Цены reasonable.',
-        date: '2023-05-15'
+// Load reviews from JSON file
+async function loadReviews() {
+    try {
+        const response = await fetch('./reviews.json');
+        const data = await response.json();
+        reviews = data.reviews;
+        
+        // Merge with local storage reviews
+        const localReviews = JSON.parse(localStorage.getItem('profservice18_reviews')) || [];
+        reviews = [...reviews, ...localReviews];
+        
+        renderReviews();
+    } catch (error) {
+        console.error('Error loading reviews:', error);
+        // Fallback to local storage
+        reviews = JSON.parse(localStorage.getItem('profservice18_reviews')) || [];
+        renderReviews();
     }
-];
+}
+
+// Save new review to local storage
+function saveReviewToLocal(review) {
+    const localReviews = JSON.parse(localStorage.getItem('profservice18_reviews')) || [];
+    localReviews.push({
+        ...review,
+        id: Date.now(), // Unique ID
+        city: 'Глазов'
+    });
+    localStorage.setItem('profservice18_reviews', JSON.stringify(localReviews));
+}
 
 // Function to render reviews
 function renderReviews() {
+    if (!reviewsContainer || !hiddenReviews) return;
+    
     reviewsContainer.innerHTML = '';
     hiddenReviews.innerHTML = '';
     
@@ -375,56 +410,82 @@ function renderReviews() {
     const visibleReviews = sortedReviews.slice(0, 3);
     const hiddenReviewsList = sortedReviews.slice(3);
     
-    visibleReviews.forEach((review, index) => {
+    visibleReviews.forEach((review) => {
         const reviewCard = createReviewCard(review);
         reviewsContainer.appendChild(reviewCard);
     });
     
-    hiddenReviewsList.forEach((review, index) => {
+    hiddenReviewsList.forEach((review) => {
         const reviewCard = createReviewCard(review);
         hiddenReviews.appendChild(reviewCard);
     });
     
     // Update toggle button text
-    toggleReviewsBtn.textContent = hiddenReviewsList.length > 0 ? 
-        `Показать все отзывы (${hiddenReviewsList.length}+)` : 
-        'Показать все отзывы';
+    if (toggleReviewsBtn) {
+        toggleReviewsBtn.textContent = hiddenReviewsList.length > 0 ? 
+            `Показать все отзывы (${hiddenReviewsList.length}+)` : 
+            'Показать все отзывы';
+            
+        // Show/hide toggle button based on reviews count
+        toggleReviewsBtn.style.display = hiddenReviewsList.length > 0 ? 'block' : 'none';
+    }
 }
 
 // Function to create review card
 function createReviewCard(review) {
     const reviewCard = document.createElement('div');
     reviewCard.className = 'review-card animate-on-scroll animated';
+    reviewCard.setAttribute('itemscope', '');
+    reviewCard.setAttribute('itemtype', 'https://schema.org/Review');
     
     const reviewHeader = document.createElement('div');
     reviewHeader.className = 'review-header';
     
     const avatar = document.createElement('div');
     avatar.className = 'review-avatar';
-    avatar.textContent = review.name.split(' ').map(n => n[0]).join('');
+    avatar.textContent = review.name.split(' ').map(n => n[0]).join('').substring(0, 2);
     
     const reviewInfo = document.createElement('div');
     reviewInfo.className = 'review-info';
     
     const name = document.createElement('h4');
     name.textContent = review.name;
+    name.setAttribute('itemprop', 'author');
     
     const date = document.createElement('div');
     date.className = 'review-date';
     date.textContent = formatDate(review.date);
+    date.setAttribute('itemprop', 'datePublished');
+    date.setAttribute('content', review.date);
     
     reviewInfo.appendChild(name);
     reviewInfo.appendChild(date);
+    
+    // Service type if available
+    if (review.service) {
+        const service = document.createElement('div');
+        service.className = 'review-service';
+        service.textContent = review.service;
+        reviewInfo.appendChild(service);
+    }
+    
     reviewHeader.appendChild(avatar);
     reviewHeader.appendChild(reviewInfo);
     
     const stars = document.createElement('div');
     stars.className = 'review-stars';
-    stars.innerHTML = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+    stars.setAttribute('itemprop', 'reviewRating');
+    stars.setAttribute('itemscope', '');
+    stars.setAttribute('itemtype', 'https://schema.org/Rating');
+    stars.innerHTML = `
+        <span itemprop="ratingValue" style="display: none;">${review.rating}</span>
+        ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+    `;
     
     const text = document.createElement('p');
     text.className = 'review-text';
     text.textContent = review.text;
+    text.setAttribute('itemprop', 'reviewBody');
     
     reviewCard.appendChild(reviewHeader);
     reviewCard.appendChild(stars);
@@ -434,13 +495,17 @@ function createReviewCard(review) {
 }
 
 // Toggle reviews visibility
-toggleReviewsBtn.addEventListener('click', () => {
-    reviewsExpanded = !reviewsExpanded;
-    hiddenReviews.classList.toggle('active', reviewsExpanded);
-    toggleReviewsBtn.textContent = reviewsExpanded ? 
-        'Скрыть отзывы' : 
-        `Показать все отзывы (${reviews.length - 3}+)`;
-});
+if (toggleReviewsBtn) {
+    toggleReviewsBtn.addEventListener('click', () => {
+        reviewsExpanded = !reviewsExpanded;
+        if (hiddenReviews) {
+            hiddenReviews.classList.toggle('active', reviewsExpanded);
+        }
+        toggleReviewsBtn.textContent = reviewsExpanded ? 
+            'Скрыть отзывы' : 
+            `Показать все отзывы (${reviews.length - 3}+)`;
+    });
+}
 
 // Function to format date
 function formatDate(dateString) {
@@ -449,90 +514,258 @@ function formatDate(dateString) {
 }
 
 // Star rating functionality
-starRating.querySelectorAll('.star').forEach(star => {
-    star.addEventListener('click', function() {
-        const rating = parseInt(this.getAttribute('data-rating'));
-        currentRating = rating;
+if (starRating) {
+    starRating.querySelectorAll('.star').forEach(star => {
+        star.addEventListener('click', function() {
+            const rating = parseInt(this.getAttribute('data-rating'));
+            currentRating = rating;
+            
+            starRating.querySelectorAll('.star').forEach(s => {
+                if (parseInt(s.getAttribute('data-rating')) <= rating) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+        });
         
-        starRating.querySelectorAll('.star').forEach(s => {
-            if (parseInt(s.getAttribute('data-rating')) <= rating) {
-                s.classList.add('active');
-            } else {
-                s.classList.remove('active');
-            }
+        // Hover effect
+        star.addEventListener('mouseenter', function() {
+            const rating = parseInt(this.getAttribute('data-rating'));
+            starRating.querySelectorAll('.star').forEach(s => {
+                if (parseInt(s.getAttribute('data-rating')) <= rating) {
+                    s.style.color = '#f1c40f';
+                }
+            });
+        });
+        
+        star.addEventListener('mouseleave', function() {
+            starRating.querySelectorAll('.star').forEach(s => {
+                if (parseInt(s.getAttribute('data-rating')) > currentRating) {
+                    s.style.color = '#ddd';
+                }
+            });
         });
     });
-});
-
-// Review form submission
-reviewForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    if (currentRating === 0) {
-        alert('Пожалуйста, поставьте оценку');
-        return;
-    }
-    
-    const name = document.getElementById('reviewName').value;
-    const text = document.getElementById('reviewText').value;
-    
-    const newReview = {
-        name: name,
-        rating: currentRating,
-        text: text,
-        date: new Date().toISOString().split('T')[0]
-    };
-    
-    reviews.push(newReview);
-    localStorage.setItem('reviews', JSON.stringify(reviews));
-    renderReviews();
-    
-    alert('Спасибо за ваш отзыв!');
-    reviewForm.reset();
-    
-    // Reset stars
-    starRating.querySelectorAll('.star').forEach(star => {
-        star.classList.remove('active');
-    });
-    currentRating = 0;
-    
-    // Collapse reviews if expanded
-    if (reviewsExpanded) {
-        hiddenReviews.classList.remove('active');
-        reviewsExpanded = false;
-        toggleReviewsBtn.textContent = `Показать все отзывы (${reviews.length - 3}+)`;
-    }
-});
-
-// Contact information management
-const savedContacts = JSON.parse(localStorage.getItem('contactInfo'));
-if (savedContacts) {
-    // Update contact info on the page
-    updateContactInfo();
 }
 
-// Function to update contact information on the page
+// Review form submission
+if (reviewForm) {
+    reviewForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (currentRating === 0) {
+            alert('Пожалуйста, поставьте оценку');
+            return;
+        }
+        
+        const name = document.getElementById('reviewName').value.trim();
+        const text = document.getElementById('reviewText').value.trim();
+        
+        if (!name || !text) {
+            alert('Пожалуйста, заполните все поля');
+            return;
+        }
+        
+        const newReview = {
+            name: name,
+            rating: currentRating,
+            text: text,
+            date: new Date().toISOString().split('T')[0],
+            service: 'Ремонт техники',
+            city: 'Глазов'
+        };
+        
+        // Save to local storage
+        saveReviewToLocal(newReview);
+        
+        // Add to current reviews and re-render
+        reviews.push(newReview);
+        renderReviews();
+        
+        alert('Спасибо за ваш отзыв о нашем сервисе в Глазове!');
+        reviewForm.reset();
+        
+        // Reset stars
+        starRating.querySelectorAll('.star').forEach(star => {
+            star.classList.remove('active');
+            star.style.color = '';
+        });
+        currentRating = 0;
+        
+        // Collapse reviews if expanded
+        if (reviewsExpanded && hiddenReviews) {
+            hiddenReviews.classList.remove('active');
+            reviewsExpanded = false;
+            if (toggleReviewsBtn) {
+                toggleReviewsBtn.textContent = `Показать все отзывы (${reviews.length - 3}+)`;
+            }
+        }
+    });
+}
+
+// Contact information management
 function updateContactInfo() {
-    const savedContacts = JSON.parse(localStorage.getItem('contactInfo'));
+    const savedContacts = JSON.parse(localStorage.getItem('profservice18_contacts'));
     if (savedContacts) {
         // Update contact section
-        document.getElementById('contact-phone').textContent = savedContacts.phone || '+7 (912) 010-78-84';
-        document.getElementById('contact-email').textContent = savedContacts.email || 'aleksei18rus@gmail.com';
-        document.getElementById('contact-address').textContent = savedContacts.address || 'г. Глазов, ул. Динамо, д. 2 (магазин "Инструменты и точка")';
+        const contactPhone = document.getElementById('contact-phone');
+        const contactEmail = document.getElementById('contact-email');
+        const contactAddress = document.getElementById('contact-address');
+        const contactHours = document.getElementById('contact-hours');
         
-        // Safely handle hours with fallback
-        const hours = savedContacts.hours || 'Пн-Пт: 10:00 - 18:00, Сб: 10:00 - 16:00, Вс: выходной';
-        document.getElementById('contact-hours').innerHTML = hours.replace ? hours.replace(', ', '<br>') : hours;
+        // Footer elements
+        const footerPhone = document.getElementById('footer-phone');
+        const footerEmail = document.getElementById('footer-email');
+        const footerAddress = document.getElementById('footer-address');
+        
+        if (contactPhone) contactPhone.textContent = savedContacts.phone || '+7 (912) 010-78-84';
+        if (contactEmail) contactEmail.textContent = savedContacts.email || 'aleksei18rus@gmail.com';
+        if (contactAddress) contactAddress.textContent = savedContacts.address || 'г. Глазов, ул. Динамо, д. 2 (магазин "Инструменты и точка")';
+        if (contactHours) contactHours.innerHTML = (savedContacts.hours || 'Пн-Пт: 10:00 - 18:00<br>Сб: 10:00 - 16:00<br>Вс: выходной').replace(/, /g, '<br>');
         
         // Update footer
-        document.getElementById('footer-phone').textContent = savedContacts.phone || '+7 (912) 010-78-84';
-        document.getElementById('footer-email').textContent = savedContacts.email || 'aleksei18rus@gmail.com';
-        document.getElementById('footer-address').textContent = savedContacts.address || 'г. Глазов, ул. Динамо, д. 2';
+        if (footerPhone) footerPhone.textContent = savedContacts.phone || '+7 (912) 010-78-84';
+        if (footerEmail) footerEmail.textContent = savedContacts.email || 'aleksei18rus@gmail.com';
+        if (footerAddress) footerAddress.textContent = savedContacts.address || 'г. Глазов, ул. Динамо, д. 2';
     }
+}
+
+// Clickable phone numbers enhancement
+function enhanceClickablePhones() {
+    const phones = document.querySelectorAll('#contact-phone, #footer-phone');
+    phones.forEach(phone => {
+        if (!phone.querySelector('a')) {
+            const phoneNumber = phone.textContent.trim();
+            const link = document.createElement('a');
+            link.href = `tel:${phoneNumber.replace(/[^\d+]/g, '')}`;
+            link.className = 'clickable-phone';
+            link.textContent = phoneNumber;
+            phone.innerHTML = '';
+            phone.appendChild(link);
+        }
+    });
+}
+
+// Email enhancement
+function enhanceEmails() {
+    const emails = document.querySelectorAll('#contact-email, #footer-email');
+    emails.forEach(email => {
+        if (!email.querySelector('a')) {
+            const emailAddress = email.textContent.trim();
+            const link = document.createElement('a');
+            link.href = `mailto:${emailAddress}`;
+            link.textContent = emailAddress;
+            email.innerHTML = '';
+            email.appendChild(link);
+        }
+    });
+}
+
+// Track outbound links for analytics
+function trackOutboundLinks() {
+    document.querySelectorAll('a[href^="http"]').forEach(link => {
+        if (link.hostname !== window.location.hostname) {
+            link.addEventListener('click', function(e) {
+                // Send event to Yandex.Metrika
+                if (window.ym) {
+                    ym(105213962, 'reachGoal', 'OUTBOUND_LINK');
+                }
+            });
+        }
+    });
+}
+
+// Popup скидки
+const discountPopup = document.getElementById('discountPopup');
+const popupClose = document.getElementById('popupClose');
+const popupAction = document.getElementById('popupAction');
+
+// Проверяем существование элементов перед работой с ними
+if (discountPopup && popupClose && popupAction) {
+    // Показываем попап через 3 секунды после загрузки
+    setTimeout(() => {
+        // Проверяем, не показывали ли уже попап в этой сессии
+        if (!sessionStorage.getItem('popupShown')) {
+            discountPopup.classList.add('active');
+            sessionStorage.setItem('popupShown', 'true');
+        }
+    }, 3000);
+
+    // Закрытие попапа
+    popupClose.addEventListener('click', () => {
+        discountPopup.classList.remove('active');
+    });
+
+    // Действие при нажатии на кнопку
+    popupAction.addEventListener('click', () => {
+        // Можно добавить переход к контактам или другому действию
+        window.location.href = '#contact';
+        discountPopup.classList.remove('active');
+    });
+
+    // Закрытие по клику на фон
+    discountPopup.addEventListener('click', (e) => {
+        if (e.target === discountPopup) {
+            discountPopup.classList.remove('active');
+        }
+    });
 }
 
 // Initialize everything on page load
-setCustomBackground();
-initializeWorkshopImages();
-initializeGallery();
-renderReviews();
+document.addEventListener('DOMContentLoaded', function() {
+    setCustomBackground();
+    initializeWorkshopImages();
+    initializeGallery();
+    loadReviews();
+    updateContactInfo();
+    enhanceClickablePhones();
+    enhanceEmails();
+    trackOutboundLinks();
+    initYandexMap();
+    // Initial animation check
+    animateOnScroll();
+});
+
+// Service Worker Registration for PWA (optional)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+                console.log('ServiceWorker registration successful');
+            })
+            .catch(function(err) {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+    });
+}
+// Яндекс Карта
+function initYandexMap() {
+    if (typeof ymaps !== 'undefined') {
+        ymaps.ready(function () {
+            const map = new ymaps.Map('yandex-map', {
+                center: [58.135923, 52.661643],
+                zoom: 17,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+            
+            const placemark = new ymaps.Placemark([58.135461,52.661849], {
+                hintContent: 'ПрофСервис18',
+                balloonContent: `
+                    <div style="padding: 10px;">
+                        <strong>ПрофСервис18</strong><br>
+                        Сервисный центр в Глазове<br>
+                        ул. Динамо, д. 2<br>
+                        <a href="tel:+79120107884">+7 (912) 010-78-84</a>
+                    </div>
+                `
+            }, {
+                preset: 'islands#redIcon'
+            });
+            
+            map.geoObjects.add(placemark);
+        });
+    } else {
+        console.log('Yandex Maps API not loaded');
+    }
+}
