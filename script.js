@@ -171,7 +171,8 @@ function initializeGallery() {
         './gallery/photo5.jpg',
         './gallery/photo6.jpg',
         './gallery/photo7.jpg',
-        './gallery/photo8.jpg'
+        './gallery/photo8.jpg',
+        './gallery/photo9.jpg'
     ].filter(src => src); // Filter out empty strings
     
     // If no gallery images, hide the gallery section
