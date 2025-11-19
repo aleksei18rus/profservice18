@@ -605,55 +605,6 @@ header {
     background: white;
 }
 
-/* Виджеты ВКонтакте */
-.vk-widgets-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
-    margin-top: 2rem;
-}
-
-@media (min-width: 992px) {
-    .vk-widgets-container {
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-    }
-}
-
-.vk-comments-widget, .vk-posts-widget {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e1e8ed;
-    text-align: center;
-}
-
-.vk-comments-widget h3, .vk-posts-widget h3 {
-    text-align: center;
-    color: var(--primary);
-    margin-bottom: 20px;
-    font-size: 1.4rem;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--secondary);
-}
-
-.vk-posts {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* Адаптация виджетов ВК */
-#vk_comments, 
-#vk_post_407958737_70,
-#vk_post_407958737_61,
-#vk_post_407958737_56 {
-    width: 100% !important;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
 /* Внешние ссылки */
 .external-links {
     text-align: center;
@@ -706,7 +657,7 @@ header {
 
 .contact-info {
     flex: 1;
-    text-align: left; /* Изменено с center на left */
+    text-align: left;
 }
 
 .contact-form {
@@ -717,11 +668,11 @@ header {
     display: flex;
     align-items: flex-start;
     margin-bottom: 2rem;
-    justify-content: flex-start; /* Изменено с center на flex-start */
+    justify-content: flex-start;
     text-align: left;
-    max-width: 100%; /* Убрано ограничение ширины */
-    margin-left: 0; /* Убрано auto */
-    margin-right: 0; /* Убрано auto */
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .info-icon {
@@ -729,7 +680,7 @@ header {
     color: var(--secondary);
     margin-right: 15px;
     margin-top: 5px;
-    flex-shrink: 0; /* Чтобы иконка не сжималась */
+    flex-shrink: 0;
 }
 
 .info-text {
@@ -747,7 +698,7 @@ header {
     display: flex;
     gap: 15px;
     margin-top: 1rem;
-    justify-content: flex-start; /* Изменено с center на flex-start */
+    justify-content: flex-start;
 }
 
 .social-links a {
@@ -866,7 +817,6 @@ footer {
     color: var(--secondary);
 }
 
-/* Контакты в футере - только выравнивание текста */
 .footer-links li {
     display: flex;
     align-items: flex-start;
@@ -886,7 +836,6 @@ footer {
     flex: 1;
 }
 
-/* Социальные иконки - только выравнивание, стили остаются прежними */
 .footer-social-links {
     display: flex;
     gap: 15px;
@@ -894,7 +843,6 @@ footer {
     justify-content: flex-start;
 }
 
-/* Стили для социальных иконок остаются без изменений */
 .footer-social-links a {
     display: inline-flex;
     align-items: center;
@@ -1158,20 +1106,6 @@ footer {
     
     .feature-item span {
         font-size: 0.75rem;
-    }
-    
-    .vk-widgets-container {
-        gap: 25px;
-    }
-    
-    .vk-comments-widget, .vk-posts-widget {
-        padding: 20px 15px;
-        border-radius: 12px;
-    }
-    
-    .vk-comments-widget h3, .vk-posts-widget h3 {
-        font-size: 1.2rem;
-        margin-bottom: 15px;
     }
     
     .info-item {

@@ -500,62 +500,16 @@ function initLazyLoading() {
     }
 }
 
-// Виджеты ВКонтакте
-function initVKWidgets() {
-    // Просто ждем и пробуем инициализировать
-    setTimeout(() => {
-        if (typeof VK !== 'undefined') {
-            try {
-                // Комментарии
-                if (document.getElementById('vk_comments')) {
-                    VK.Widgets.Comments("vk_comments", { 
-                        limit: 50, 
-                        attach: "*" 
-                    });
-                }
-                
-                // Посты
-                const posts = [
-                    { id: 'vk_post_407958737_70', owner: 407958737, post: 70, hash: 'LqQCwgVri0cVdpQuao1fcNO4_lRZ' },
-                    { id: 'vk_post_407958737_61', owner: 407958737, post: 61, hash: 'VnZGVvYvsrOe_wSa0xoWSYDn5fwg' },
-                    { id: 'vk_post_407958737_56', owner: 407958737, post: 56, hash: 'ZAOZ6_Qj4WRj_HFutxVZhPwyLCFH' }
-                ];
-                
-                posts.forEach(post => {
-                    if (document.getElementById(post.id)) {
-                        VK.Widgets.Post(post.id, post.owner, post.post, post.hash);
-                    }
-                });
-                
-            } catch (error) {
-                console.log('VK виджеты не загрузились, но сайт продолжает работать');
-            }
-        }
-    }, 3000);
-}
-
-// Управление контактной информацией
-function updateContactInfo() {
-    // Простая функция для проверки контактных данных
-    console.log('Контактная информация проверена');
-    
-    // Убеждаемся, что телефоны и email кликабельны
-    enhanceClickablePhones();
-    enhanceEmails();
-}
-
 // Инициализация всего при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     setCustomBackground();
     initializeWorkshopImages();
     initializeGallery();
-    updateContactInfo(); // Теперь эта функция определена
     enhanceClickablePhones();
     enhanceEmails();
     trackOutboundLinks();
     initYandexMap();
     initLazyLoading();
-    initVKWidgets();
     
     // Первоначальная проверка анимации
     animateOnScroll();
