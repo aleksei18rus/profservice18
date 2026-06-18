@@ -1,45 +1,44 @@
-// Переключение мобильного меню
-document.querySelector('.mobile-menu').addEventListener('click', function() {
-    document.querySelector('.nav-links').classList.toggle('active');
+// ============================================
+// 1. МОБИЛЬНОЕ МЕНЮ
+// ============================================
+document.querySelector('.mobile-menu')?.addEventListener('click', function() {
+    document.querySelector('.nav-links')?.classList.toggle('active');
 });
 
-// Закрытие мобильного меню при клике на ссылки
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
-        document.querySelector('.nav-links').classList.remove('active');
+        document.querySelector('.nav-links')?.classList.remove('active');
     });
 });
 
-// Плавная прокрутка
+// ============================================
+// 2. ПЛАВНАЯ ПРОКРУТКА
+// ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        
         const targetId = this.getAttribute('href');
-        if(targetId === '#') return;
-        
+        if (targetId === '#') return;
         const targetElement = document.querySelector(targetId);
-        if(targetElement) {
+        if (targetElement) {
             window.scrollTo({
                 top: targetElement.offsetTop - 80,
                 behavior: 'smooth'
             });
-            
-            // Закрытие мобильного меню если открыто
-            document.querySelector('.nav-links').classList.remove('active');
+            document.querySelector('.nav-links')?.classList.remove('active');
         }
     });
 });
 
-// Анимация при прокрутке
+// ============================================
+// 3. АНИМАЦИЯ ПРИ ПРОКРУТКЕ
+// ============================================
 const animateOnScroll = function() {
     const elements = document.querySelectorAll('.animate-on-scroll');
-    
     elements.forEach(element => {
         const elementPosition = element.getBoundingClientRect().top;
         const screenPosition = window.innerHeight / 1.2;
-        
-        if(elementPosition < screenPosition) {
+        if (elementPosition < screenPosition) {
             element.classList.add('animated');
         }
     });
@@ -48,21 +47,9 @@ const animateOnScroll = function() {
 window.addEventListener('scroll', animateOnScroll);
 window.addEventListener('load', animateOnScroll);
 
-// Пользовательский фон
-function setCustomBackground() {
-    const customBg = './img/background.jpg';
-    const img = new Image();
-    img.onload = function() {
-        document.documentElement.style.setProperty('--hero-bg', `url('${customBg}')`);
-    };
-    img.onerror = function() {
-        // Используем стандартный фон если пользовательское изображение не существует
-        document.documentElement.style.setProperty('--hero-bg', "url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80')");
-    };
-    img.src = customBg;
-}
-
-// Карусель мастерской
+// ============================================
+// 4. КАРУСЕЛЬ МАСТЕРСКОЙ
+// ============================================
 const workshopSlides = document.getElementById('workshopSlides');
 const workshopPrev = document.getElementById('workshopPrev');
 const workshopNext = document.getElementById('workshopNext');
@@ -72,55 +59,31 @@ const workshopDots = workshopNav ? workshopNav.querySelectorAll('.workshop-dot')
 let currentWorkshopSlide = 0;
 const workshopSlideCount = workshopSlides ? workshopSlides.children.length : 0;
 
-// Инициализация изображений мастерской
-function initializeWorkshopImages() {
-    if (!workshopSlides) return;
-    
-    // Проверяем какие изображения действительно существуют
-    for (let i = 0; i < workshopSlideCount - 1; i++) {
-        const img = workshopSlides.children[i].querySelector('img');
-        if (img) {
-            img.onerror = function() {
-                // Если изображение не существует, скрываем слайд
-                workshopSlides.children[i].style.display = 'none';
-            };
-        }
-    }
-}
-
-// Обновление карусели мастерской
 function updateWorkshopCarousel() {
     if (!workshopSlides) return;
-    
     workshopSlides.style.transform = `translateX(-${currentWorkshopSlide * 100}%)`;
-    
-    // Обновляем точки
     workshopDots.forEach((dot, index) => {
         dot.classList.toggle('active', index === currentWorkshopSlide);
     });
 }
 
-// Следующий слайд мастерской
 function nextWorkshopSlide() {
-    if (!workshopSlides) return;
+    if (!workshopSlides || workshopSlideCount === 0) return;
     currentWorkshopSlide = (currentWorkshopSlide + 1) % workshopSlideCount;
     updateWorkshopCarousel();
 }
 
-// Предыдущий слайд мастерской
 function prevWorkshopSlide() {
-    if (!workshopSlides) return;
+    if (!workshopSlides || workshopSlideCount === 0) return;
     currentWorkshopSlide = (currentWorkshopSlide - 1 + workshopSlideCount) % workshopSlideCount;
     updateWorkshopCarousel();
 }
 
-// Инициализация карусели мастерской если элементы существуют
 if (workshopPrev && workshopNext) {
     workshopPrev.addEventListener('click', prevWorkshopSlide);
     workshopNext.addEventListener('click', nextWorkshopSlide);
 }
 
-// Навигация точками
 workshopDots.forEach((dot, index) => {
     dot.addEventListener('click', () => {
         currentWorkshopSlide = index;
@@ -128,22 +91,20 @@ workshopDots.forEach((dot, index) => {
     });
 });
 
-// Автопрокрутка карусели мастерской
 let workshopInterval;
-if (workshopSlides) {
+if (workshopSlides && workshopSlideCount > 0) {
     workshopInterval = setInterval(nextWorkshopSlide, 5000);
-
-    // Пауза автопрокрутки при наведении
-    workshopSlides.parentElement.addEventListener('mouseenter', () => {
+    workshopSlides.parentElement?.addEventListener('mouseenter', () => {
         clearInterval(workshopInterval);
     });
-
-    workshopSlides.parentElement.addEventListener('mouseleave', () => {
+    workshopSlides.parentElement?.addEventListener('mouseleave', () => {
         workshopInterval = setInterval(nextWorkshopSlide, 5000);
     });
 }
 
-// Карусель галереи
+// ============================================
+// 5. ГАЛЕРЕЯ РАБОТ
+// ============================================
 const gallerySlides = document.getElementById('gallerySlides');
 const galleryNav = document.getElementById('galleryNav');
 const galleryPrev = document.getElementById('galleryPrev');
@@ -152,10 +113,10 @@ const galleryNext = document.getElementById('galleryNext');
 let currentGallerySlide = 0;
 let galleryImages = [];
 
-// Инициализация галереи с изображениями из папки gallery
 function initializeGallery() {
     if (!gallerySlides) return;
-    
+
+    // Если нет изображений, показываем сообщение
     galleryImages = [
         './gallery/photo1.jpg',
         './gallery/photo2.jpg',
@@ -166,131 +127,113 @@ function initializeGallery() {
         './gallery/photo7.jpg',
         './gallery/photo8.jpg',
         './gallery/photo9.jpg'
-    ].filter(src => src); // Фильтруем пустые строки
-    
-    // Если нет изображений галереи, скрываем секцию
+    ].filter(src => src);
+
+    // Если изображений нет — показываем заглушку
     if (galleryImages.length === 0) {
-        document.querySelector('.gallery').style.display = 'none';
+        gallerySlides.innerHTML = `
+            <div class="gallery-slide" style="display:flex;align-items:center;justify-content:center;background:#f5f5f5;">
+                <div style="text-align:center;padding:40px;color:#999;">
+                    <i class="fas fa-images" style="font-size:3rem;display:block;margin-bottom:15px;"></i>
+                    <p>Добавьте фотографии в папку <strong>gallery/</strong></p>
+                    <p style="font-size:0.85rem;margin-top:5px;">photo1.jpg, photo2.jpg, ...</p>
+                </div>
+            </div>
+        `;
         return;
     }
-    
+
     renderGallery();
 }
 
-// Отрисовка галереи
 function renderGallery() {
     if (!gallerySlides || !galleryNav) return;
-    
+
     gallerySlides.innerHTML = '';
     galleryNav.innerHTML = '';
-    
+
     galleryImages.forEach((imageSrc, index) => {
-        // Пропускаем пустые или невалидные URL
         if (!imageSrc || imageSrc.trim() === '') return;
-        
-        // Создаем слайд
+
         const slide = document.createElement('div');
         slide.className = 'gallery-slide';
-        
         const img = document.createElement('img');
         img.src = imageSrc;
-        img.alt = `Пример ремонта техники в Глазове от ПрофСервис18 - работа ${index + 1}`;
+        img.alt = `Пример ремонта техники в Глазове - работа ${index + 1}`;
         img.loading = 'lazy';
-        img.classList.add('lazy-image');
+        img.onerror = function() { slide.style.display = 'none'; };
         img.addEventListener('click', () => openGalleryLightbox(index));
-        img.onerror = function() {
-            // Если изображение не загружается, удаляем слайд
-            slide.style.display = 'none';
-        };
-        
         slide.appendChild(img);
         gallerySlides.appendChild(slide);
-        
-        // Создаем миниатюру
+
         const thumb = document.createElement('div');
         thumb.className = 'gallery-thumb';
         if (index === 0) thumb.classList.add('active');
         thumb.setAttribute('data-index', index);
-        
         const thumbImg = document.createElement('img');
         thumbImg.src = imageSrc;
-        thumbImg.alt = `Миниатюра примера работы ${index + 1}`;
+        thumbImg.alt = `Миниатюра работы ${index + 1}`;
         thumbImg.loading = 'lazy';
-        thumbImg.classList.add('lazy-image');
-        
         thumb.appendChild(thumbImg);
         galleryNav.appendChild(thumb);
-        
-        // Событие клика на миниатюру
+
         thumb.addEventListener('click', () => {
             currentGallerySlide = index;
             updateGalleryCarousel();
         });
     });
-    
-    // Обновляем карусель галереи
+
     updateGalleryCarousel();
 }
 
-// Обновление карусели галереи
 function updateGalleryCarousel() {
     if (!gallerySlides) return;
-    
     gallerySlides.style.transform = `translateX(-${currentGallerySlide * 100}%)`;
-    
-    // Обновляем миниатюры
     const thumbs = galleryNav.querySelectorAll('.gallery-thumb');
     thumbs.forEach((thumb, index) => {
         thumb.classList.toggle('active', index === currentGallerySlide);
     });
 }
 
-// Следующий слайд галереи
 function nextGallerySlide() {
     if (!gallerySlides || galleryImages.length === 0) return;
     currentGallerySlide = (currentGallerySlide + 1) % galleryImages.length;
     updateGalleryCarousel();
 }
 
-// Предыдущий слайд галереи
 function prevGallerySlide() {
     if (!gallerySlides || galleryImages.length === 0) return;
     currentGallerySlide = (currentGallerySlide - 1 + galleryImages.length) % galleryImages.length;
     updateGalleryCarousel();
 }
 
-// Инициализация карусели галереи если элементы существуют
 if (galleryPrev && galleryNext) {
     galleryPrev.addEventListener('click', prevGallerySlide);
     galleryNext.addEventListener('click', nextGallerySlide);
 }
 
-// Автопрокрутка карусели галереи
 let galleryInterval;
 if (gallerySlides && galleryImages.length > 0) {
     galleryInterval = setInterval(nextGallerySlide, 4000);
-
-    // Пауза автопрокрутки при наведении
-    gallerySlides.parentElement.addEventListener('mouseenter', () => {
+    gallerySlides.parentElement?.addEventListener('mouseenter', () => {
         clearInterval(galleryInterval);
     });
-
-    gallerySlides.parentElement.addEventListener('mouseleave', () => {
+    gallerySlides.parentElement?.addEventListener('mouseleave', () => {
         galleryInterval = setInterval(nextGallerySlide, 4000);
     });
 }
 
-// Модальное окно для галереи
+// ============================================
+// 6. МОДАЛЬНОЕ ОКНО ГАЛЕРЕИ (ЛАЙТБОКС)
+// ============================================
 const galleryLightbox = document.getElementById('galleryLightbox');
 const galleryLightboxImage = document.getElementById('galleryLightboxImage');
 const galleryLightboxClose = document.getElementById('galleryLightboxClose');
 const galleryLightboxPrev = document.getElementById('galleryLightboxPrev');
 const galleryLightboxNext = document.getElementById('galleryLightboxNext');
 
-// Открытие модального окна галереи
 function openGalleryLightbox(index) {
     if (!galleryLightbox || !galleryLightboxImage) return;
-    
     currentGallerySlide = index;
     galleryLightboxImage.src = galleryImages[currentGallerySlide];
     galleryLightboxImage.alt = `Пример ремонта техники в Глазове - работа ${index + 1}`;
@@ -298,51 +241,38 @@ function openGalleryLightbox(index) {
     document.body.style.overflow = 'hidden';
 }
 
-// Закрытие модального окна галереи
 function closeGalleryLightbox() {
     if (!galleryLightbox) return;
-    
     galleryLightbox.classList.remove('active');
     document.body.style.overflow = 'auto';
 }
 
-// Следующее изображение в модальном окне
 function nextGalleryLightboxImage() {
     if (!galleryLightboxImage || galleryImages.length === 0) return;
-    
     currentGallerySlide = (currentGallerySlide + 1) % galleryImages.length;
     galleryLightboxImage.src = galleryImages[currentGallerySlide];
-    galleryLightboxImage.alt = `Пример ремонта техники в Глазове - работа ${currentGallerySlide + 1}`;
     updateGalleryCarousel();
 }
 
-// Предыдущее изображение в модальном окне
 function prevGalleryLightboxImage() {
     if (!galleryLightboxImage || galleryImages.length === 0) return;
-    
     currentGallerySlide = (currentGallerySlide - 1 + galleryImages.length) % galleryImages.length;
     galleryLightboxImage.src = galleryImages[currentGallerySlide];
-    galleryLightboxImage.alt = `Пример ремонта техники в Глазове - работа ${currentGallerySlide + 1}`;
     updateGalleryCarousel();
 }
 
-// Инициализация модального окна если элементы существуют
 if (galleryLightboxClose && galleryLightboxPrev && galleryLightboxNext) {
     galleryLightboxClose.addEventListener('click', closeGalleryLightbox);
     galleryLightboxPrev.addEventListener('click', prevGalleryLightboxImage);
     galleryLightboxNext.addEventListener('click', nextGalleryLightboxImage);
 }
 
-// Закрытие модального окна по клику на фон
 if (galleryLightbox) {
     galleryLightbox.addEventListener('click', (e) => {
-        if (e.target === galleryLightbox) {
-            closeGalleryLightbox();
-        }
+        if (e.target === galleryLightbox) closeGalleryLightbox();
     });
 }
 
-// Навигация с клавиатуры
 document.addEventListener('keydown', (e) => {
     if (galleryLightbox && galleryLightbox.classList.contains('active')) {
         if (e.key === 'Escape') closeGalleryLightbox();
@@ -351,10 +281,231 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Улучшение кликабельных телефонов
+// ============================================
+// 7. ОТЗЫВЫ: ПОКАЗЫВАЕМ ПО 3 + КНОПКА "ПОКАЗАТЬ ЕЩЁ"
+// ============================================
+
+let allReviews = [];
+let visibleCount = 3; // ПОКАЗЫВАЕМ 3 ОТЗЫВА
+const loadMoreCount = 3; // ДОБАВЛЯЕМ ПО 3
+
+function loadReviews(filterService = null) {
+    fetch('reviews.json')
+        .then(response => {
+            if (!response.ok) throw new Error('Отзывы не найдены');
+            return response.json();
+        })
+        .then(data => {
+            allReviews = data.reviews || [];
+
+            if (filterService) {
+                allReviews = allReviews.filter(r => r.service === filterService);
+            }
+
+            // Сортировка: новые сверху
+            allReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            if (allReviews.length === 0) {
+                document.getElementById('reviewsContainer').innerHTML = `
+                    <p style="text-align:center;color:#666;padding:40px 0;grid-column:1/-1;">
+                        Пока нет отзывов. Будьте первым!
+                    </p>
+                `;
+                document.getElementById('loadMoreBtn').style.display = 'none';
+                document.getElementById('reviewsCounter').textContent = 'Всего отзывов: 0';
+                return;
+            }
+
+            // Обновляем счётчик
+            document.getElementById('reviewsCounter').textContent = `Всего отзывов: ${allReviews.length}`;
+
+            // Показываем первые 3
+            visibleCount = Math.min(3, allReviews.length);
+            renderReviews();
+            updateLoadMoreButton();
+        })
+        .catch(err => {
+            console.error('Ошибка загрузки отзывов:', err);
+            document.getElementById('reviewsContainer').innerHTML = `
+                <p style="text-align:center;color:#999;padding:40px 0;grid-column:1/-1;">
+                    ⚠️ Отзывы временно недоступны
+                </p>
+            `;
+            document.getElementById('loadMoreBtn').style.display = 'none';
+        });
+}
+
+function renderReviews() {
+    const container = document.getElementById('reviewsContainer');
+    const visibleReviews = allReviews.slice(0, visibleCount);
+
+    container.innerHTML = visibleReviews.map(r => `
+        <div class="review-card">
+            <div class="rating">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+            <div class="review-text">${r.text}</div>
+            <div class="review-author">${r.name}</div>
+            <div class="review-meta">
+                <span>${r.date}</span>
+                <span class="review-service">${r.service || 'Общее'}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+function updateLoadMoreButton() {
+    const btn = document.getElementById('loadMoreBtn');
+    if (visibleCount >= allReviews.length) {
+        btn.style.display = 'none';
+    } else {
+        btn.style.display = 'inline-block';
+        const remaining = allReviews.length - visibleCount;
+        const nextBatch = Math.min(loadMoreCount, remaining);
+        btn.textContent = `Показать ещё ${nextBatch} отзыва (${visibleCount}/${allReviews.length})`;
+    }
+}
+
+// ============================================
+// 8. ПЕРЕКЛЮЧЕНИЕ ТАБОВ
+// ============================================
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+
+        const tabId = this.dataset.tab;
+        document.getElementById(`tab-${tabId}`).classList.add('active');
+    });
+});
+
+// ============================================
+// 9. ФОРМА ОТЗЫВА → EMAIL
+// ============================================
+function initReviewForm() {
+    const form = document.getElementById('reviewForm');
+    if (!form) return;
+
+    const YOUR_EMAIL = 'aleksei18rus@gmail.com';
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+        submitBtn.disabled = true;
+
+        const formData = new FormData(form);
+        const service = formData.get('service') || 'Не указана';
+        const rating = formData.get('rating') || '5';
+        const name = formData.get('name') || 'Аноним';
+        const text = formData.get('text') || '';
+
+        if (!text.trim()) {
+            alert('❌ Пожалуйста, напишите текст отзыва');
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            return;
+        }
+
+        const stars = '★'.repeat(parseInt(rating)) + '☆'.repeat(5 - parseInt(rating));
+
+        const subject = encodeURIComponent(`Новый отзыв для ${service}`);
+        const body = encodeURIComponent(
+            `Новый отзыв для сайта ПрофСервис18\n\n` +
+            `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+            `📋 Услуга: ${service}\n` +
+            `⭐ Оценка: ${stars} (${rating}/5)\n` +
+            `👤 Имя: ${name}\n` +
+            `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+            `📄 Текст отзыва:\n` +
+            `${text}\n\n` +
+            `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+            `📅 Дата: ${new Date().toLocaleDateString('ru-RU')}\n\n` +
+            `⬇️ Чтобы опубликовать отзыв, добавьте его в файл reviews.json:\n` +
+            `{\n` +
+            `  "id": НОВЫЙ_НОМЕР,\n` +
+            `  "name": "${name}",\n` +
+            `  "rating": ${rating},\n` +
+            `  "text": "${text.replace(/"/g, '\\"')}",\n` +
+            `  "date": "${new Date().toISOString().split('T')[0]}",\n` +
+            `  "service": "${service}",\n` +
+            `  "city": "Глазов"\n` +
+            `}`
+        );
+
+        window.location.href = `mailto:${YOUR_EMAIL}?subject=${subject}&body=${body}`;
+
+        document.getElementById('reviewSuccess').style.display = 'block';
+        form.reset();
+
+        submitBtn.innerHTML = '✅ Отправлено!';
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }, 3000);
+
+        if (typeof ym !== 'undefined') {
+            ym(105213962, 'reachGoal', 'REVIEW_SUBMIT');
+        }
+
+        document.getElementById('reviewSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+}
+
+// ============================================
+// 10. ФОРМА ЗАЯВКИ (AJAX)
+// ============================================
+function initCallbackForm() {
+    const form = document.getElementById('callbackForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Отправка...';
+        submitBtn.disabled = true;
+
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById('formSuccess').style.display = 'block';
+                form.reset();
+                if (typeof ym !== 'undefined') {
+                    ym(105213962, 'reachGoal', 'FORM_SUBMIT');
+                }
+                submitBtn.textContent = '✅ Отправлено!';
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 3000);
+            } else {
+                throw new Error('Ошибка сервера');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            alert('❌ Произошла ошибка. Пожалуйста, свяжитесь с нами по телефону: +7 (912) 010-78-84');
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        });
+    });
+}
+
+// ============================================
+// 11. КЛИКАБЕЛЬНЫЕ ТЕЛЕФОНЫ И EMAIL
+// ============================================
 function enhanceClickablePhones() {
-    const phones = document.querySelectorAll('#contact-phone, #footer-phone');
-    phones.forEach(phone => {
+    document.querySelectorAll('#contact-phone, #footer-phone').forEach(phone => {
         if (!phone.querySelector('a')) {
             const phoneNumber = phone.textContent.trim();
             const link = document.createElement('a');
@@ -367,10 +518,8 @@ function enhanceClickablePhones() {
     });
 }
 
-// Улучшение email
 function enhanceEmails() {
-    const emails = document.querySelectorAll('#contact-email, #footer-email');
-    emails.forEach(email => {
+    document.querySelectorAll('#contact-email, #footer-email').forEach(email => {
         if (!email.querySelector('a')) {
             const emailAddress = email.textContent.trim();
             const link = document.createElement('a');
@@ -382,13 +531,14 @@ function enhanceEmails() {
     });
 }
 
-// Отслеживание внешних ссылок для аналитики
+// ============================================
+// 12. ОТСЛЕЖИВАНИЕ ВНЕШНИХ ССЫЛОК
+// ============================================
 function trackOutboundLinks() {
     document.querySelectorAll('a[href^="http"]').forEach(link => {
         if (link.hostname !== window.location.hostname) {
-            link.addEventListener('click', function(e) {
-                // Отправляем событие в Яндекс.Метрику
-                if (window.ym) {
+            link.addEventListener('click', function() {
+                if (typeof ym !== 'undefined') {
                     ym(105213962, 'reachGoal', 'OUTBOUND_LINK');
                 }
             });
@@ -396,35 +546,30 @@ function trackOutboundLinks() {
     });
 }
 
-// Всплывающее окно скидки
+// ============================================
+// 13. ВСПЛЫВАЮЩЕЕ ОКНО СКИДКИ
+// ============================================
 const discountPopup = document.getElementById('discountPopup');
 const popupClose = document.getElementById('popupClose');
 const popupAction = document.getElementById('popupAction');
 
-// Проверяем существование элементов перед работой с ними
 if (discountPopup && popupClose && popupAction) {
-    // Показываем попап через 3 секунды после загрузки
     setTimeout(() => {
-        // Проверяем, не показывали ли уже попап в этой сессии
         if (!sessionStorage.getItem('popupShown')) {
             discountPopup.classList.add('active');
             sessionStorage.setItem('popupShown', 'true');
         }
     }, 3000);
 
-    // Закрытие попапа
     popupClose.addEventListener('click', () => {
         discountPopup.classList.remove('active');
     });
 
-    // Действие при нажатии на кнопку
     popupAction.addEventListener('click', () => {
-        // Переход к контактам
         window.location.href = '#contact';
         discountPopup.classList.remove('active');
     });
 
-    // Закрытие по клику на фон
     discountPopup.addEventListener('click', (e) => {
         if (e.target === discountPopup) {
             discountPopup.classList.remove('active');
@@ -432,20 +577,25 @@ if (discountPopup && popupClose && popupAction) {
     });
 }
 
-// Яндекс Карта
+// ============================================
+// 14. ЯНДЕКС КАРТА
+// ============================================
 function initYandexMap() {
     if (typeof ymaps !== 'undefined') {
-        ymaps.ready(function () {
+        ymaps.ready(function() {
+            const mapElement = document.getElementById('yandex-map');
+            if (!mapElement) return;
+
             const map = new ymaps.Map('yandex-map', {
                 center: [58.135923, 52.661643],
                 zoom: 17,
                 controls: ['zoomControl', 'fullscreenControl']
             });
-            
-            const placemark = new ymaps.Placemark([58.135461,52.661849], {
+
+            const placemark = new ymaps.Placemark([58.135461, 52.661849], {
                 hintContent: 'ПрофСервис18',
                 balloonContent: `
-                    <div style="padding: 10px;">
+                    <div style="padding:10px;">
                         <strong>ПрофСервис18</strong><br>
                         Сервисный центр в Глазове<br>
                         ул. Динамо, д. 2<br>
@@ -455,75 +605,86 @@ function initYandexMap() {
             }, {
                 preset: 'islands#redIcon'
             });
-            
+
             map.geoObjects.add(placemark);
         });
-    } else {
-        console.log('API Яндекс.Карт не загружен');
     }
 }
 
-// Ленивая загрузка для изображений
-function initLazyLoading() {
-    const images = document.querySelectorAll('img.lazy-image');
-    
-    // Если браузер поддерживает IntersectionObserver
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    if (img.dataset.src) {
-                        img.src = img.dataset.src;
-                        img.classList.add('loaded');
-                    }
-                    observer.unobserve(img);
-                }
-            });
-        }, {
-            rootMargin: '50px 0px',
-            threshold: 0.1
-        });
-
-        images.forEach(img => {
-            // Сохраняем оригинальный src в data-src
-            if (!img.dataset.src && img.src) {
-                img.dataset.src = img.src;
-            }
-            imageObserver.observe(img);
-        });
-    } else {
-        // Fallback для старых браузеров
-        images.forEach(img => {
-            img.classList.add('loaded');
-        });
-    }
+// ============================================
+// 15. ПОЛЬЗОВАТЕЛЬСКИЙ ФОН
+// ============================================
+function setCustomBackground() {
+    const customBg = './img/background.jpg';
+    const img = new Image();
+    img.onload = function() {
+        document.documentElement.style.setProperty('--hero-bg', `url('${customBg}')`);
+    };
+    img.onerror = function() {
+        document.documentElement.style.setProperty('--hero-bg', "url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80')");
+    };
+    img.src = customBg;
 }
 
-// Инициализация всего при загрузке страницы
+// ============================================
+// 16. ИНИЦИАЛИЗАЦИЯ
+// ============================================
 document.addEventListener('DOMContentLoaded', function() {
+    // Фон
     setCustomBackground();
-    initializeWorkshopImages();
+
+    // Галерея
     initializeGallery();
+
+    // Отзывы
+    loadReviews();
+
+    // Кнопка "Показать ещё" (+3)
+    document.getElementById('loadMoreBtn')?.addEventListener('click', function() {
+        visibleCount = Math.min(visibleCount + loadMoreCount, allReviews.length);
+        renderReviews();
+        updateLoadMoreButton();
+
+        const container = document.getElementById('reviewsContainer');
+        const lastCard = container.lastElementChild;
+        if (lastCard) {
+            setTimeout(() => {
+                lastCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+    });
+
+    // Формы
+    initReviewForm();
+    initCallbackForm();
+
+    // Контакты
     enhanceClickablePhones();
     enhanceEmails();
+
+    // Ссылки
     trackOutboundLinks();
+
+    // Карта
     initYandexMap();
-    initLazyLoading();
-    
-    // Первоначальная проверка анимации
+
+    // Анимация
     animateOnScroll();
 });
 
-// Регистрация Service Worker для PWA (опционально)
+// ============================================
+// 17. SERVICE WORKER (PWA)
+// ============================================
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js')
             .then(function(registration) {
-                console.log('Регистрация ServiceWorker успешна');
+                console.log('ServiceWorker зарегистрирован успешно');
             })
             .catch(function(err) {
-                console.log('Регистрация ServiceWorker не удалась: ', err);
+                console.log('Ошибка регистрации ServiceWorker: ', err);
             });
     });
 }
+
+console.log('✅ ПрофСервис18 – сайт полностью загружен!');
