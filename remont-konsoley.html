@@ -42,6 +42,70 @@
         "priceRange": "от 500 ₽"
     }
     </script>
+
+    <!-- Schema.org: хлебные крошки -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Главная",
+                "item": "https://profservice18.ru/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Ремонт игровых консолей в Глазове",
+                "item": "https://profservice18.ru/remont-konsoley.html"
+            }
+        ]
+    }
+    </script>
+
+    <!-- Schema.org: FAQ (расширенный сниппет в Яндексе) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Сколько времени занимает ремонт консоли в Глазове?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Чистка и замена термопасты делается за 1-2 часа. Ремонт дисковода или блока питания – 1-3 дня (зависит от наличия запчастей)."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Даёте ли вы гарантию на ремонт консоли?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Да, гарантия до 6 месяцев на все виды работ и заменённые детали."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Ремонтируете ли вы PlayStation 5 в Глазове?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Да, мы ремонтируем PlayStation 5 в Глазове: чистка, замена термопасты, ремонт блока питания, ремонт дисковода."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Что такое чиповка консоли и нужно ли это?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Чиповка позволяет запускать игры с внешних носителей и расширяет возможности консоли. Мы делаем чиповку консолей в Глазове качественно и с гарантией."
+                }
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
     <!-- Шапка -->
@@ -69,6 +133,7 @@
                 <li><a href="index.html#gallery">Галерея</a></li>
                 <li><a href="index.html#reviews">Отзывы</a></li>
                 <li><a href="index.html#contact">Контакты</a></li>
+                <li><a href="index.html#track" class="nav-cta">Отследить заказ</a></li>
             </ul>
         </div>
     </header>
@@ -169,8 +234,109 @@
         </div>
     </section>
 
-    <!-- Контакты и подвал (аналогично) -->
-    <!-- ... -->
+    <!-- ===== КОНТАКТЫ ===== -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-title"><h2>Свяжитесь с нами</h2></div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="info-item animate-on-scroll">
+                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="info-text"><h3>Адрес</h3><p>г. Глазов, ул. Динамо, д. 2 (магазин "Инструменты и точка")</p></div>
+                    </div>
+                    <div class="info-item animate-on-scroll">
+                        <div class="info-icon"><i class="fas fa-phone"></i></div>
+                        <div class="info-text"><h3>Телефон</h3><p id="contact-phone">+7 (912) 010-78-84</p></div>
+                    </div>
+                    <div class="info-item animate-on-scroll">
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="info-text"><h3>Email</h3><p id="contact-email">aleksei18rus@gmail.com</p></div>
+                    </div>
+                    <div class="info-item animate-on-scroll">
+                        <div class="info-icon"><i class="fas fa-clock"></i></div>
+                        <div class="info-text"><h3>Режим работы</h3><p>Пн-Пт: 10:00–18:00<br>Сб: 10:00–16:00<br>Вс: выходной</p></div>
+                    </div>
+                    <div class="social-links animate-on-scroll">
+                        <a href="https://t.me/aleksei_glazov?text=Здравствуйте!%20Интересует%20ремонт%20консоли%20в%20Глазове." target="_blank" class="telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="https://wa.me/79501502965?text=Здравствуйте!%20Интересует%20ремонт%20консоли%20в%20Глазове." target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://vk.com/odin1189" target="_blank" class="vk"><i class="fab fa-vk"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form animate-on-scroll">
+                    <h3>Оставьте заявку на ремонт консоли</h3>
+                    <p style="margin-bottom:1rem;color:#666;">Заполните форму, и мы свяжемся с вами в ближайшее время для бесплатной диагностики.</p>
+                    <form id="callbackForm" action="https://formspree.io/f/xayagbyy" method="POST">
+                        <input type="text" name="_gotcha" style="display:none">
+                        <input type="text" name="name" placeholder="Ваше имя" required>
+                        <input type="tel" name="phone" placeholder="Телефон" required>
+                        <textarea name="message" placeholder="Опишите проблему с консолью" rows="4"></textarea>
+                        <input type="hidden" name="_subject" value="Заявка на ремонт консоли">
+                        <input type="hidden" name="service" value="Ремонт консолей">
+                        <input type="hidden" name="page" value="remont-konsoley.html">
+                        <button type="submit" class="btn">Отправить заявку</button>
+                    </form>
+                    <div id="formSuccess" style="display:none; background:#d4edda; padding:15px; border-radius:5px; margin-top:15px; color:#155724;">
+                        ✅ Спасибо! Заявка отправлена. Мы свяжемся с вами.
+                    </div>
+                    <p style="margin-top:1rem;font-size:0.9rem;color:#666;">* Нажимая на кнопку, вы соглашаетесь с <a href="politika-konfidencialnosti.html" style="color:#666;">обработкой персональных данных</a>.</p>
+                </div>
+            </div>
+            <div class="map animate-on-scroll">
+                <div id="yandex-map" style="width:100%;height:300px;border-radius:10px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ПОДВАЛ ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ПрофСервис18</h3>
+                    <p>Ремонт техники в Глазове с 2012 года. Качество, надёжность и доступные цены.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Услуги</h3>
+                    <ul class="footer-links">
+                        <li><a href="remont-televizorov.html">Ремонт телевизоров</a></li>
+                        <li><a href="remont-noutbukov.html">Ремонт ноутбуков</a></li>
+                        <li><a href="remont-telefonov.html">Ремонт телефонов</a></li>
+                        <li><a href="remont-konsoley.html">Ремонт консолей</a></li>
+                        <li><a href="3d-pechat.html">3D-печать</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> <span>ул. Динамо, д. 2, Глазов</span></li>
+                        <li><i class="fas fa-phone"></i> <span id="footer-phone">+7 (912) 010-78-84</span></li>
+                        <li><i class="fas fa-envelope"></i> <span id="footer-email">aleksei18rus@gmail.com</span></li>
+                    </ul>
+                    <div class="footer-social-links">
+                        <a href="https://t.me/aleksei_glazov"><i class="fab fa-telegram"></i></a>
+                        <a href="https://wa.me/79501502965"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://vk.com/odin1189"><i class="fab fa-vk"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 ПрофСервис18. Все права защищены. <a href="politika-konfidencialnosti.html" style="color:inherit;text-decoration:underline;">Политика конфиденциальности</a></p>
+                <div style="font-size:0.6rem;opacity:0.4;">Разработка: Алексей Ившин</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== ПОПАП СКИДКИ ===== -->
+    <div class="discount-popup" id="discountPopup">
+        <div class="popup-content">
+            <button class="popup-close" id="popupClose"><i class="fas fa-times"></i></button>
+            <div class="popup-icon"><i class="fas fa-gift"></i></div>
+            <h3>Скидка 5% новым клиентам!</h3>
+            <p>При обращении с сайта получите скидку 5% на ремонт консоли в Глазове.</p>
+            <div class="popup-code">Промокод: <strong>SITE5</strong></div>
+            <button class="btn btn-accent" id="popupAction">Получить скидку</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
     <script>

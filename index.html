@@ -15,12 +15,38 @@
     <meta name="keywords" content="ремонт техники Глазов, ремонт телевизоров Глазов, ремонт ноутбуков Глазов, ремонт телефонов Глазов, ремонт консолей Глазов, 3D печать Глазов, сервисный центр Глазов">
     <link rel="canonical" href="https://profservice18.ru/">
 
+    <!-- Региональные метки для Яндекса (локальное SEO) -->
+    <meta name="geo.region" content="RU-UD">
+    <meta name="geo.placename" content="Глазов">
+    <meta name="geo.position" content="58.135461;52.661849">
+    <meta name="ICBM" content="58.135461, 52.661849">
+
+    <!-- Open Graph (превью при пересылке в соцсетях и мессенджерах) -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="ПрофСервис18">
+    <meta property="og:title" content="ПрофСервис18 – Ремонт техники в Глазове | Сервисный центр">
+    <meta property="og:description" content="Ремонт телевизоров, ноутбуков, телефонов, игровых консолей и 3D-печать в Глазове. Гарантия до 6 месяцев, бесплатная диагностика. Работаем с 2012 года.">
+    <meta property="og:url" content="https://profservice18.ru/">
+    <meta property="og:image" content="https://profservice18.ru/img/mast1.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ПрофСервис18 – Ремонт техники в Глазове">
+    <meta name="twitter:description" content="Ремонт телевизоров, ноутбуков, телефонов и консолей в Глазове. Гарантия до 6 месяцев, бесплатная диагностика.">
+    <meta name="twitter:image" content="https://profservice18.ru/img/mast1.jpg">
+
     <!-- Favicon -->
     <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="./img/apple-touch-icon.png">
 
-    <!-- Яндекс.Карты -->
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=4a7515a2-dd37-43de-8eeb-40289d074c63"></script>
+    <!-- Предзагрузка подключений к внешним ресурсам (ускоряет загрузку) -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://api-maps.yandex.ru">
+    <link rel="preconnect" href="https://mc.yandex.ru">
+
+    <!-- Яндекс.Карты (defer – не блокирует рендеринг страницы) -->
+    <script defer src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=4a7515a2-dd37-43de-8eeb-40289d074c63"></script>
     
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -33,11 +59,16 @@
     {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
+        "@id": "https://profservice18.ru/#organization",
         "name": "ПрофСервис18",
         "description": "Ремонт техники в Глазове с 2012 года. Услуги: телевизоры, ноутбуки, телефоны, консоли, 3D-печать.",
         "url": "https://profservice18.ru",
         "telephone": "+79120107884",
         "email": "aleksei18rus@gmail.com",
+        "image": "https://profservice18.ru/img/mast1.jpg",
+        "logo": "https://profservice18.ru/img/android-chrome-512x512.png",
+        "foundingDate": "2012",
+        "priceRange": "от 500 ₽",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "ул. Динамо, д. 2",
@@ -45,9 +76,40 @@
             "addressRegion": "Удмуртская Республика",
             "addressCountry": "RU"
         },
-        "openingHours": "Mo-Fr 10:00-18:00, Sa 10:00-16:00",
-        "priceRange": "от 500 ₽",
-        "areaServed": "Глазов и Глазовский район"
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 58.135461,
+            "longitude": 52.661849
+        },
+        "hasMap": "https://yandex.ru/maps/?text=Глазов, ул. Динамо, 2",
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "10:00",
+                "closes": "18:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "10:00",
+                "closes": "16:00"
+            }
+        ],
+        "areaServed": "Глазов и Глазовский район",
+        "sameAs": [
+            "https://vk.com/odin1189",
+            "https://t.me/aleksei_glazov",
+            "https://www.avito.ru/glazov/predlozheniya_uslug/remont_noutbukov_televizorov_pristavok_3630080756",
+            "https://yandex.ru/uslugi/profile/AleksejI-1855998",
+            "https://profi.ru/profile/IvshinAS"
+        ],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "7",
+            "bestRating": "5"
+        }
     }
     </script>
 </head>
@@ -76,8 +138,9 @@
                 </li>
                 <li><a href="#about">О нас</a></li>
                 <li><a href="#gallery">Галерея</a></li>
-                <li><a href="#reviews-section">Отзывы</a></li>
+                <li><a href="#reviews">Отзывы</a></li>
                 <li><a href="#contact">Контакты</a></li>
+                <li><a href="#track" class="nav-cta">Отследить заказ</a></li>
             </ul>
         </div>
     </header>
@@ -117,9 +180,9 @@
                 </div>
                 <div class="workshop-carousel animate-on-scroll">
                     <div class="workshop-slides" id="workshopSlides">
-                        <div class="workshop-slide"><img src="./img/mast1.jpg" alt="Мастерская ПрофСервис18" onerror="this.style.display='none'"></div>
-                        <div class="workshop-slide"><img src="./img/mast2.jpg" alt="Рабочее место" onerror="this.style.display='none'"></div>
-                        <div class="workshop-slide"><img src="./img/mast3.jpg" alt="Оборудование" onerror="this.style.display='none'"></div>
+                        <div class="workshop-slide"><img src="./img/mast1.jpg" alt="Мастерская ПрофСервис18 в Глазове" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                        <div class="workshop-slide"><img src="./img/mast2.jpg" alt="Рабочее место мастера ПрофСервис18" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                        <div class="workshop-slide"><img src="./img/mast3.jpg" alt="Оборудование сервисного центра ПрофСервис18" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
                         <div class="workshop-slide" style="background:#f0f0f0;display:flex;align-items:center;justify-content:center;"><i class="fas fa-camera" style="font-size:3rem;color:#ccc;"></i></div>
                     </div>
                     <button class="workshop-prev" id="workshopPrev"><i class="fas fa-chevron-left"></i></button>
@@ -185,11 +248,31 @@
         <div class="container">
             <div class="section-title"><h2>Галерея работ</h2></div>
             <div class="gallery-carousel">
-                <div class="gallery-slides" id="gallerySlides"></div>
+                <div class="gallery-slides" id="gallerySlides">
+                    <div class="gallery-slide"><img src="./gallery/photo1.jpg" alt="Ремонт техники в Глазове – пример работы 1 (ПрофСервис18)" loading="lazy" decoding="async"></div>
+                    <div class="gallery-slide"><img src="./gallery/photo2.jpg" alt="Ремонт техники в Глазове – пример работы 2 (ПрофСервис18)" loading="lazy" decoding="async"></div>
+                    <div class="gallery-slide"><img src="./gallery/photo3.jpg" alt="Ремонт техники в Глазове – пример работы 3 (ПрофСервис18)" loading="lazy" decoding="async"></div>
+                    <div class="gallery-slide"><img src="./gallery/photo4.jpg" alt="Ремонт техники в Глазове – пример работы 4 (ПрофСервис18)" loading="lazy" decoding="async"></div>
+                    <div class="gallery-slide"><img src="./gallery/photo5.jpg" alt="Ремонт техники в Глазове – пример работы 5 (ПрофСервис18)" loading="lazy" decoding="async"></div>
+                    <div class="gallery-slide"><img src="./gallery/photo6.jpg" alt="Ремонт техники в Глазове – пример работы 6 (ПрофСервис18)" loading="lazy" decoding="async"></div>
+                    <div class="gallery-slide"><img src="./gallery/photo7.jpg" alt="Ремонт техники в Глазове – пример работы 7 (ПрофСервис18)" loading="lazy" decoding="async"></div>
+                    <div class="gallery-slide"><img src="./gallery/photo8.jpg" alt="Ремонт техники в Глазове – пример работы 8 (ПрофСервис18)" loading="lazy" decoding="async"></div>
+                    <div class="gallery-slide"><img src="./gallery/photo9.jpg" alt="Ремонт техники в Глазове – пример работы 9 (ПрофСервис18)" loading="lazy" decoding="async"></div>
+                </div>
                 <button class="gallery-prev" id="galleryPrev"><i class="fas fa-chevron-left"></i></button>
                 <button class="gallery-next" id="galleryNext"><i class="fas fa-chevron-right"></i></button>
             </div>
-            <div class="gallery-nav" id="galleryNav"></div>
+            <div class="gallery-nav" id="galleryNav">
+                <div class="gallery-thumb active" data-index="0"><img src="./gallery/photo1.jpg" alt="Миниатюра работы 1" loading="lazy"></div>
+                <div class="gallery-thumb" data-index="1"><img src="./gallery/photo2.jpg" alt="Миниатюра работы 2" loading="lazy"></div>
+                <div class="gallery-thumb" data-index="2"><img src="./gallery/photo3.jpg" alt="Миниатюра работы 3" loading="lazy"></div>
+                <div class="gallery-thumb" data-index="3"><img src="./gallery/photo4.jpg" alt="Миниатюра работы 4" loading="lazy"></div>
+                <div class="gallery-thumb" data-index="4"><img src="./gallery/photo5.jpg" alt="Миниатюра работы 5" loading="lazy"></div>
+                <div class="gallery-thumb" data-index="5"><img src="./gallery/photo6.jpg" alt="Миниатюра работы 6" loading="lazy"></div>
+                <div class="gallery-thumb" data-index="6"><img src="./gallery/photo7.jpg" alt="Миниатюра работы 7" loading="lazy"></div>
+                <div class="gallery-thumb" data-index="7"><img src="./gallery/photo8.jpg" alt="Миниатюра работы 8" loading="lazy"></div>
+                <div class="gallery-thumb" data-index="8"><img src="./gallery/photo9.jpg" alt="Миниатюра работы 9" loading="lazy"></div>
+            </div>
         </div>
     </section>
 
@@ -206,17 +289,30 @@
     </div>
 
     <!-- ===== ОТЗЫВЫ ===== -->
-    <section class="section" id="reviews-section" style="background: var(--light);">
+    <section class="section" id="reviews" style="background: var(--light);">
         <div class="container">
             <div class="section-title">
                 <h2>Отзывы наших клиентов</h2>
                 <p style="color:#666; margin-top:10px;">Реальные отзывы о нашей работе в Глазове</p>
             </div>
 
+            <!-- Сводка рейтинга -->
+            <div class="reviews-summary" id="reviewsSummary">
+                <div class="summary-score"><span id="summaryValue">5.0</span><span class="summary-max">/5</span></div>
+                <div class="summary-stars" id="summaryStars">★★★★★</div>
+                <div class="summary-count" id="summaryCount">Загрузка отзывов…</div>
+            </div>
+
+            <!-- Переключатель вкладок -->
+            <div class="reviews-tabs">
+                <button class="tab-btn active" data-tab="reviews-list" type="button"><i class="fas fa-comments"></i> Отзывы <span class="tab-badge" id="tabCount"></span></button>
+                <button class="tab-btn" data-tab="add-review-form" type="button"><i class="fas fa-pen"></i> Оставить отзыв</button>
+            </div>
+
             <!-- Вкладка: СПИСОК ОТЗЫВОВ -->
             <div class="tab-content active" id="tab-reviews-list">
                 <!-- Счётчик отзывов -->
-                <div id="reviewsCounter" style="text-align:center;color:#666;margin-bottom:20px;font-size:0.95rem;"></div>
+                <div id="reviewsCounter" class="reviews-counter"></div>
                 
                 <!-- Контейнер для отзывов -->
                 <div class="reviews-grid" id="reviewsContainer">
@@ -224,7 +320,7 @@
                 </div>
                 
                 <!-- Кнопка "Показать ещё" -->
-                <div style="text-align:center; margin-top:30px;">
+                <div class="reviews-more">
                     <button class="btn btn-secondary" id="loadMoreBtn">
                         Показать ещё отзывы
                     </button>
@@ -294,6 +390,26 @@
         </div>
     </section>
 
+    <!-- ===== ОТСЛЕЖИВАНИЕ РЕМОНТА ===== -->
+    <section class="section track-section" id="track">
+        <div class="container">
+            <div class="section-title">
+                <h2>Отследить статус ремонта</h2>
+                <p style="color:#666; margin-top:10px;">Введите номер телефона, который вы оставляли при сдаче техники, — и узнайте, на каком этапе ваш заказ</p>
+            </div>
+            <div class="track-container">
+                <div class="track-card">
+                    <form id="trackForm" class="track-form" autocomplete="off">
+                        <input type="tel" id="trackPhone" placeholder="+7 (___) ___-__-__" inputmode="tel" maxlength="18" required>
+                        <button type="submit" class="btn"><i class="fas fa-search"></i> Найти заказ</button>
+                    </form>
+                    <div id="trackResults" class="track-results"></div>
+                    <p class="track-hint">Не нашли заказ? <a href="https://ps18.cloudpub.ru/track/" target="_blank" rel="noopener">Откройте страницу отслеживания</a> или позвоните нам: <a href="tel:+79120107884">+7 (912) 010-78-84</a>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== ВНЕШНИЕ ССЫЛКИ ===== -->
     <section class="section" id="links">
         <div class="container">
@@ -358,7 +474,7 @@
                     <div id="formSuccess" style="display:none; background:#d4edda; padding:15px; border-radius:5px; margin-top:15px; color:#155724;">
                         ✅ Спасибо! Заявка отправлена. Мы свяжемся с вами.
                     </div>
-                    <p style="margin-top:1rem;font-size:0.9rem;color:#666;">* Нажимая на кнопку, вы соглашаетесь с обработкой персональных данных.</p>
+                    <p style="margin-top:1rem;font-size:0.9rem;color:#666;">* Нажимая на кнопку, вы соглашаетесь с <a href="politika-konfidencialnosti.html" style="color:#666;">обработкой персональных данных</a>.</p>
                 </div>
             </div>
             <div class="map animate-on-scroll">
@@ -374,6 +490,7 @@
                 <div class="footer-column">
                     <h3>ПрофСервис18</h3>
                     <p>Ремонт техники в Глазове с 2012 года. Качество, надёжность и доступные цены.</p>
+                    <a href="#track" class="btn btn-small" style="margin-top:0.8rem;"><i class="fas fa-search"></i> Отследить заказ</a>
                 </div>
                 <div class="footer-column">
                     <h3>Услуги</h3>
@@ -400,7 +517,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2026 ПрофСервис18. Все права защищены.</p>
+                <p>&copy; 2026 ПрофСервис18. Все права защищены. <a href="politika-konfidencialnosti.html" style="color:inherit;text-decoration:underline;">Политика конфиденциальности</a></p>
                 <div style="font-size:0.6rem;opacity:0.4;">Разработка: Алексей Ившин</div>
             </div>
         </div>

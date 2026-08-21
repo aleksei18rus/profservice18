@@ -1,13 +1,18 @@
 // ============================================
 // 1. МОБИЛЬНОЕ МЕНЮ
 // ============================================
-document.querySelector('.mobile-menu')?.addEventListener('click', function() {
-    document.querySelector('.nav-links')?.classList.toggle('active');
-});
+const mobileMenu = document.querySelector('.mobile-menu');
+if (mobileMenu) {
+    mobileMenu.addEventListener('click', function() {
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks) navLinks.classList.toggle('active');
+    });
+}
 
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
-        document.querySelector('.nav-links')?.classList.remove('active');
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks) navLinks.classList.remove('active');
     });
 });
 
@@ -25,7 +30,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 top: targetElement.offsetTop - 80,
                 behavior: 'smooth'
             });
-            document.querySelector('.nav-links')?.classList.remove('active');
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) navLinks.classList.remove('active');
         }
     });
 });
@@ -93,13 +99,16 @@ workshopDots.forEach((dot, index) => {
 
 let workshopInterval;
 if (workshopSlides && workshopSlideCount > 0) {
+    const workshopCarousel = workshopSlides.parentElement;
     workshopInterval = setInterval(nextWorkshopSlide, 5000);
-    workshopSlides.parentElement?.addEventListener('mouseenter', () => {
-        clearInterval(workshopInterval);
-    });
-    workshopSlides.parentElement?.addEventListener('mouseleave', () => {
-        workshopInterval = setInterval(nextWorkshopSlide, 5000);
-    });
+    if (workshopCarousel) {
+        workshopCarousel.addEventListener('mouseenter', () => {
+            clearInterval(workshopInterval);
+        });
+        workshopCarousel.addEventListener('mouseleave', () => {
+            workshopInterval = setInterval(nextWorkshopSlide, 5000);
+        });
+    }
 }
 
 // ============================================
@@ -116,18 +125,14 @@ let galleryImages = [];
 function initializeGallery() {
     if (!gallerySlides) return;
 
-    // Если нет изображений, показываем сообщение
-    galleryImages = [
-        './gallery/photo1.jpg',
-        './gallery/photo2.jpg',
-        './gallery/photo3.jpg',
-        './gallery/photo4.jpg',
-        './gallery/photo5.jpg',
-        './gallery/photo6.jpg',
-        './gallery/photo7.jpg',
-        './gallery/photo8.jpg',
-        './gallery/photo9.jpg'
-    ].filter(src => src);
+    // Список фото берём из статичной разметки index.html (единственный источник).
+    // Чтобы добавить фото: положить файл в папку gallery/ и добавить слайд+миниатюру в index.html.
+    const imgs = gallerySlides.querySelectorAll('.gallery-slide img');
+    galleryImages = Array.prototype.map.call(imgs, function(img) {
+        return img.getAttribute('src');
+    }).filter(function(src) {
+        return src && src.trim() !== '';
+    });
 
     // Если изображений нет — показываем заглушку
     if (galleryImages.length === 0) {
@@ -144,6 +149,22 @@ function initializeGallery() {
     }
 
     renderGallery();
+    startGalleryAutoplay();
+}
+
+// Автопрокрутка галереи (запускается после загрузки списка фото)
+function startGalleryAutoplay() {
+    if (!gallerySlides || galleryImages.length === 0) return;
+    const galleryCarousel = gallerySlides.parentElement;
+    galleryInterval = setInterval(nextGallerySlide, 4000);
+    if (galleryCarousel) {
+        galleryCarousel.addEventListener('mouseenter', function() {
+            clearInterval(galleryInterval);
+        });
+        galleryCarousel.addEventListener('mouseleave', function() {
+            galleryInterval = setInterval(nextGallerySlide, 4000);
+        });
+    }
 }
 
 function renderGallery() {
@@ -213,15 +234,6 @@ if (galleryPrev && galleryNext) {
 }
 
 let galleryInterval;
-if (gallerySlides && galleryImages.length > 0) {
-    galleryInterval = setInterval(nextGallerySlide, 4000);
-    gallerySlides.parentElement?.addEventListener('mouseenter', () => {
-        clearInterval(galleryInterval);
-    });
-    gallerySlides.parentElement?.addEventListener('mouseleave', () => {
-        galleryInterval = setInterval(nextGallerySlide, 4000);
-    });
-}
 
 // ============================================
 // 6. МОДАЛЬНОЕ ОКНО ГАЛЕРЕИ (ЛАЙТБОКС)
@@ -305,6 +317,11 @@ function loadReviews(filterService = null) {
             // Сортировка: новые сверху
             allReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+            // Сводка рейтинга и счётчик на вкладке
+            updateReviewsSummary();
+            const tabCount = document.getElementById('tabCount');
+            if (tabCount) tabCount.textContent = allReviews.length > 0 ? '(' + allReviews.length + ')' : '';
+
             if (allReviews.length === 0) {
                 document.getElementById('reviewsContainer').innerHTML = `
                     <p style="text-align:center;color:#666;padding:40px 0;grid-column:1/-1;">
@@ -332,6 +349,8 @@ function loadReviews(filterService = null) {
                 </p>
             `;
             document.getElementById('loadMoreBtn').style.display = 'none';
+            const summaryCount = document.getElementById('summaryCount');
+            if (summaryCount) summaryCount.textContent = 'Отзывы временно недоступны';
         });
 }
 
@@ -339,17 +358,69 @@ function renderReviews() {
     const container = document.getElementById('reviewsContainer');
     const visibleReviews = allReviews.slice(0, visibleCount);
 
-    container.innerHTML = visibleReviews.map(r => `
-        <div class="review-card">
-            <div class="rating">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
-            <div class="review-text">${r.text}</div>
-            <div class="review-author">${r.name}</div>
-            <div class="review-meta">
-                <span>${r.date}</span>
-                <span class="review-service">${r.service || 'Общее'}</span>
+    container.innerHTML = visibleReviews.map(r => {
+        const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+        const initial = (r.name || '?').trim().charAt(0).toUpperCase();
+        const cityHtml = r.city
+            ? '<span class="review-city"><i class="fas fa-map-marker-alt"></i> ' + escapeHtml(r.city) + '</span>'
+            : '';
+        return `
+            <div class="review-card">
+                <div class="review-card-top">
+                    <div class="review-avatar">${escapeHtml(initial)}</div>
+                    <div class="review-head">
+                        <div class="review-author">${escapeHtml(r.name || 'Аноним')}</div>
+                        <div class="review-meta">
+                            <span>${formatReviewDate(r.date)}</span>
+                            ${cityHtml}
+                        </div>
+                    </div>
+                    <div class="rating" title="Оценка: ${r.rating} из 5">${stars}</div>
+                </div>
+                <div class="review-text">«${escapeHtml(r.text)}»</div>
+                <div class="review-service">${escapeHtml(r.service || 'Общее')}</div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
+}
+
+// Сводка: средний балл, звёзды, количество
+function updateReviewsSummary() {
+    const summaryValue = document.getElementById('summaryValue');
+    const summaryStars = document.getElementById('summaryStars');
+    const summaryCount = document.getElementById('summaryCount');
+    if (!summaryValue || !summaryStars || !summaryCount) return;
+
+    if (allReviews.length === 0) {
+        summaryValue.textContent = '—';
+        summaryStars.textContent = '☆☆☆☆☆';
+        summaryCount.textContent = 'Отзывов пока нет — будьте первым!';
+        return;
+    }
+
+    const total = allReviews.reduce((sum, r) => sum + (Number(r.rating) || 0), 0);
+    const avg = total / allReviews.length;
+    summaryValue.textContent = avg.toFixed(1);
+    summaryStars.textContent = '★'.repeat(Math.round(avg)) + '☆'.repeat(5 - Math.round(avg));
+    summaryCount.textContent = 'На основе ' + allReviews.length + ' ' + pluralize(allReviews.length);
+}
+
+function pluralize(n) {
+    const m10 = n % 10;
+    const m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return 'отзыв';
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return 'отзыва';
+    return 'отзывов';
+}
+
+// Дата в русском формате: "15 ноября 2025"
+function formatReviewDate(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+                    'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+    return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
 }
 
 function updateLoadMoreButton() {
@@ -554,12 +625,13 @@ const popupClose = document.getElementById('popupClose');
 const popupAction = document.getElementById('popupAction');
 
 if (discountPopup && popupClose && popupAction) {
+    // Показываем попап не сразу, а через 30 секунд (ранний показ увеличивает отказы и ухудшает поведенческие факторы для Яндекса)
     setTimeout(() => {
         if (!sessionStorage.getItem('popupShown')) {
             discountPopup.classList.add('active');
             sessionStorage.setItem('popupShown', 'true');
         }
-    }, 3000);
+    }, 30000);
 
     popupClose.addEventListener('click', () => {
         discountPopup.classList.remove('active');
@@ -627,6 +699,123 @@ function setCustomBackground() {
 }
 
 // ============================================
+// 15.1 ОТСЛЕЖИВАНИЕ РЕМОНТА (ps18.cloudpub.ru)
+// Цепочка: fetch (CORS) → JSONP → запасная ссылка
+// ============================================
+function initTrackWidget() {
+    const form = document.getElementById('trackForm');
+    const input = document.getElementById('trackPhone');
+    const results = document.getElementById('trackResults');
+    if (!form || !input || !results) return;
+
+    // Маска ввода телефона +7 (XXX) XXX-XX-XX
+    input.addEventListener('input', function() {
+        let digits = this.value.replace(/\D/g, '');
+        if (digits.length === 0) { this.value = ''; return; }
+        if (digits[0] === '8') digits = '7' + digits.slice(1);
+        if (digits[0] !== '7') digits = '7' + digits;
+        digits = digits.slice(0, 11);
+        let out = '+7';
+        if (digits.length > 1) out += ' (' + digits.slice(1, 4);
+        if (digits.length >= 4) out += ') ' + digits.slice(4, 7);
+        if (digits.length >= 7) out += '-' + digits.slice(7, 9);
+        if (digits.length >= 9) out += '-' + digits.slice(9, 11);
+        this.value = out;
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const digits = input.value.replace(/\D/g, '');
+        if (digits.length < 11) {
+            results.innerHTML = '<div class="track-error">Пожалуйста, введите номер телефона полностью.</div>';
+            return;
+        }
+        results.innerHTML = '<div class="track-loading">⏳ Ищем ваш заказ…</div>';
+        searchOrders('+' + digits);
+    });
+
+    // 1) Обычный запрос (работает, если CRM разрешила CORS)
+    function searchOrders(phone) {
+        const apiUrl = 'https://ps18.cloudpub.ru/track/api?phone=' + encodeURIComponent(phone);
+        fetch(apiUrl)
+            .then(function(r) { return r.json(); })
+            .then(function(data) { renderTrackData(data); })
+            .catch(function() { tryJsonp(apiUrl); });
+    }
+
+    // 2) JSONP через <script> (работает, если API поддерживает параметр callback)
+    function tryJsonp(apiUrl) {
+        let done = false;
+        const cbName = 'ps18TrackCb_' + Date.now();
+        window[cbName] = function(data) {
+            done = true;
+            cleanup();
+            renderTrackData(data);
+        };
+        const script = document.createElement('script');
+        script.src = apiUrl + '&callback=' + cbName;
+        script.onerror = cleanup;
+        document.head.appendChild(script);
+        setTimeout(cleanup, 7000);
+
+        function cleanup() {
+            if (window[cbName]) { delete window[cbName]; }
+            if (script.parentNode) { script.parentNode.removeChild(script); }
+            if (!done) showLinkFallback();
+        }
+    }
+
+    // 3) Запасной вариант: ссылка на страницу отслеживания
+    function showLinkFallback() {
+        results.innerHTML = '<div class="track-error">CRM не разрешает показывать заказ прямо на сайте. ' +
+            '<a href="https://ps18.cloudpub.ru/track/" target="_blank" rel="noopener">Откройте страницу отслеживания</a> ' +
+            'или позвоните нам: <a href="tel:+79120107884">+7 (912) 010-78-84</a>.</div>';
+    }
+
+    function renderTrackData(data) {
+        if (data.error) {
+            results.innerHTML = '<div class="track-error">' + escapeHtml(data.error) + '</div>';
+            return;
+        }
+        if (!data.orders || data.orders.length === 0) {
+            results.innerHTML = '<div class="track-empty">По этому номеру заказы не найдены. Проверьте номер или позвоните нам: <a href="tel:+79120107884">+7 (912) 010-78-84</a>.</div>';
+            return;
+        }
+        results.innerHTML = data.orders.map(function(order) {
+            const statusClass = statusClassFor(order.status);
+            const cost = order.total_cost ? '<div class="track-cost">' + escapeHtml(order.total_cost) + ' ₽</div>' : '';
+            return '<div class="track-order">' +
+                '<div class="order-info">' +
+                    '<strong>Заказ №' + escapeHtml(order.order_number || '—') + '</strong>' +
+                    '<span>' + escapeHtml(order.brand || '') + ' ' + escapeHtml(order.model || '') + '</span>' +
+                '</div>' +
+                '<div class="order-meta">' +
+                    '<span class="track-status ' + statusClass + '">' + escapeHtml(order.status_label || '—') + '</span>' +
+                    cost +
+                '</div>' +
+            '</div>';
+        }).join('');
+    }
+}
+
+function statusClassFor(status) {
+    const map = {
+        'done': 'ok', 'ready': 'ok', 'completed': 'ok', 'finished': 'ok', 'выдан': 'ok', 'готов': 'ok', 'завершен': 'ok',
+        'in_repair': 'work', 'repair': 'work', 'in_work': 'work', 'в_ремонте': 'work', 'в ремонте': 'work', 'ремонт': 'work',
+        'waiting_parts': 'wait', 'awaiting_parts': 'wait', 'wait': 'wait', 'ждет_запчасти': 'wait', 'ожидание': 'wait',
+        'received': 'new', 'new': 'new', 'принят': 'new', 'принято': 'new',
+        'issue': 'bad', 'cancelled': 'bad', 'canceled': 'bad', 'отменен': 'bad', 'отменён': 'bad'
+    };
+    return map[String(status).toLowerCase()] || 'default';
+}
+
+function escapeHtml(str) {
+    return String(str == null ? '' : str).replace(/[&<>"']/g, function(c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+}
+
+// ============================================
 // 16. ИНИЦИАЛИЗАЦИЯ
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
@@ -640,23 +829,29 @@ document.addEventListener('DOMContentLoaded', function() {
     loadReviews();
 
     // Кнопка "Показать ещё" (+3)
-    document.getElementById('loadMoreBtn')?.addEventListener('click', function() {
-        visibleCount = Math.min(visibleCount + loadMoreCount, allReviews.length);
-        renderReviews();
-        updateLoadMoreButton();
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            visibleCount = Math.min(visibleCount + loadMoreCount, allReviews.length);
+            renderReviews();
+            updateLoadMoreButton();
 
-        const container = document.getElementById('reviewsContainer');
-        const lastCard = container.lastElementChild;
-        if (lastCard) {
-            setTimeout(() => {
-                lastCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
-        }
-    });
+            const container = document.getElementById('reviewsContainer');
+            const lastCard = container.lastElementChild;
+            if (lastCard) {
+                setTimeout(() => {
+                    lastCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        });
+    }
 
     // Формы
     initReviewForm();
     initCallbackForm();
+
+    // Отслеживание ремонта
+    initTrackWidget();
 
     // Контакты
     enhanceClickablePhones();

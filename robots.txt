@@ -1,26 +1,10 @@
 User-agent: Yandex
 Allow: /
-Disallow: /admin/
-Disallow: /img/
-Disallow: /gallery/
 
 User-agent: Googlebot
 Allow: /
-Disallow: /admin/
-Disallow: /img/
-Disallow: /gallery/
 
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /img/
-Disallow: /gallery/
 
-# Карта сайта
-Sitemap: https://aleksei18rus.github.io/profservice18/sitemap.xml
-
-# Главная страница
-Host: https://aleksei18rus.github.io/profservice18/
-
-# Время обновления
-Crawl-delay: 2
+Sitemap: https://profservice18.ru/sitemap.xml

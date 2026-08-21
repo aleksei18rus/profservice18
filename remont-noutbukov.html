@@ -42,6 +42,78 @@
         "priceRange": "от 500 ₽"
     }
     </script>
+
+    <!-- Schema.org: хлебные крошки -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Главная",
+                "item": "https://profservice18.ru/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Ремонт ноутбуков в Глазове",
+                "item": "https://profservice18.ru/remont-noutbukov.html"
+            }
+        ]
+    }
+    </script>
+
+    <!-- Schema.org: FAQ (расширенный сниппет в Яндексе) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Сколько времени занимает ремонт ноутбука в Глазове?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "В среднем 1-3 дня. Замена экрана или чистка от пыли делается за 1 день. Сложный ремонт материнской платы может занять до 5 дней (если требуется заказ запчастей)."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Даёте ли вы гарантию на ремонт ноутбука?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Да, гарантия до 6 месяцев на все виды работ и заменённые детали."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Бесплатная диагностика – это правда?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Да, мы проводим бесплатную диагностику, если вы соглашаетесь на ремонт у нас."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Ремонтируете ли вы MacBook в Глазове?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Да, мы ремонтируем ноутбуки MacBook в Глазове: замена аккумулятора, ремонт материнской платы, замена экрана."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Что делать, если ноутбук залили водой в Глазове?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Немедленно отключите ноутбук от зарядки, выньте батарею (если съёмная) и обратитесь к нам для срочного ремонта ноутбука после залития в Глазове. Чем быстрее, тем выше шанс восстановить ноутбук."
+                }
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
     <!-- Шапка -->
@@ -69,6 +141,7 @@
                 <li><a href="index.html#gallery">Галерея</a></li>
                 <li><a href="index.html#reviews">Отзывы</a></li>
                 <li><a href="index.html#contact">Контакты</a></li>
+                <li><a href="index.html#track" class="nav-cta">Отследить заказ</a></li>
             </ul>
         </div>
     </header>
@@ -209,14 +282,22 @@
                     </div>
                 </div>
                 <div class="contact-form animate-on-scroll">
-                    <h3>Оставьте заявку</h3>
-                    <form id="callbackForm" action="https://formspree.io/f/yourFormID" method="POST">
+                    <h3>Оставьте заявку на ремонт ноутбука</h3>
+                    <p style="margin-bottom:1rem;color:#666;">Заполните форму, и мы свяжемся с вами для бесплатной диагностики.</p>
+                    <form id="callbackForm" action="https://formspree.io/f/xayagbyy" method="POST">
+                        <input type="text" name="_gotcha" style="display:none">
                         <input type="text" name="name" placeholder="Ваше имя" required>
                         <input type="tel" name="phone" placeholder="Телефон" required>
-                        <textarea name="message" placeholder="Опишите проблему" rows="4"></textarea>
-                        <button type="submit" class="btn">Отправить</button>
+                        <textarea name="message" placeholder="Опишите проблему с ноутбуком" rows="4"></textarea>
+                        <input type="hidden" name="_subject" value="Заявка на ремонт ноутбука">
+                        <input type="hidden" name="service" value="Ремонт ноутбуков">
+                        <input type="hidden" name="page" value="remont-noutbukov.html">
+                        <button type="submit" class="btn">Отправить заявку</button>
                     </form>
-                    <p style="margin-top:1rem;font-size:0.9rem;color:#666;">* Нажимая на кнопку, вы соглашаетесь с обработкой персональных данных.</p>
+                    <div id="formSuccess" style="display:none; background:#d4edda; padding:15px; border-radius:5px; margin-top:15px; color:#155724;">
+                        ✅ Спасибо! Заявка отправлена. Мы свяжемся с вами.
+                    </div>
+                    <p style="margin-top:1rem;font-size:0.9rem;color:#666;">* Нажимая на кнопку, вы соглашаетесь с <a href="politika-konfidencialnosti.html" style="color:#666;">обработкой персональных данных</a>.</p>
                 </div>
             </div>
             <div class="map animate-on-scroll">
@@ -258,7 +339,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2026 ПрофСервис18. Все права защищены.</p>
+                <p>&copy; 2026 ПрофСервис18. Все права защищены. <a href="politika-konfidencialnosti.html" style="color:inherit;text-decoration:underline;">Политика конфиденциальности</a></p>
                 <div style="font-size:0.6rem;opacity:0.4;">Разработка: Алексей Ившин</div>
             </div>
         </div>
